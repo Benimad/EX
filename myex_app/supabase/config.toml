@@ -1,0 +1,21 @@
+# Minimal Supabase CLI config for MyEx. Run `supabase init` to get the full
+# template if you need more settings, then keep the [functions.*] blocks below.
+project_id = "myex"
+
+[api]
+schemas = ["public"]
+
+[auth]
+# Anonymous sign-in is required: the app signs in anonymously at first launch
+# so RevenueCat's appUserID = Supabase uid before any paywall (M4).
+enable_anonymous_sign_ins = true
+
+[functions.revenuecat-webhook]
+# RevenueCat does not send a Supabase JWT; auth is the Bearer webhook token.
+verify_jwt = false
+
+[functions.sync-purchases]
+verify_jwt = true
+
+[functions.mira-chat]
+verify_jwt = true

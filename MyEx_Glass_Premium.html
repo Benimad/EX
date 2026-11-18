@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FFF5F7">
+<title>MyEx Glass Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet">
+<style>
+/* ================= tokens ================= */
+:root{
+ /* surfaces */
+ --bg:#FFF5F7;--bg-elev:#FFFFFF;
+ --page:radial-gradient(90% 45% at 100% 0%,rgba(255,120,160,.16),transparent 70%),#FFF5F7;
+ /* labels (wine-tinted neutrals) */
+ --ink:#3A0F22;--ink-2:#86506A;--ink-3:rgba(58,15,34,.30);
+ --sep:rgba(58,15,34,.12);--fill:rgba(58,15,34,.06);
+ /* one accent */
+ --accent:#D81B60;--accent-ink:#B0124F;--accent-soft:rgba(216,27,96,.10);
+ /* semantic */
+ --success:#0B7A55;--success-soft:rgba(11,122,85,.10);--danger:#D70015;--switch-on:#34C759;
+ /* the only gradient: Home streak hero + app icon */
+ --hero:radial-gradient(110% 80% at 90% 0%,rgba(255,150,180,.45),transparent 60%),linear-gradient(160deg,#B3134F 0%,#D81B60 100%);
+ /* type */
+ --sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+ --serif:"Instrument Serif",ui-serif,Georgia,serif;
+ /* radii */
+ --r-xs:8px;--r-s:12px;--r-m:16px;--r-l:22px;--r-xl:28px;--r-sheet:38px;
+ /* spacing (4/8 grid) */
+ --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s8:32px;
+ /* motion: damped-spring samples (see design_plan.md section 5) */
+ --ease-smooth:linear(0,.041 5%,.133 10%,.246 15%,.363 20%,.473 25%,.570 30%,.654 35%,.725 40%,.833 50%,.903 60%,.947 70%,.974 80%,.991 90%,1);
+ --ease-snappy:linear(0,.062 5%,.202 10%,.367 15%,.526 20%,.664 25%,.776 30%,.861 35%,.922 40%,.990 50%,1.012 60%,1.015 70%,1.010 80%,1.006 90%,1);
+ --ease-bouncy:linear(0,.099 5%,.320 10%,.571 15%,.796 20%,.965 25%,1.069 30%,1.118 35%,1.125 40%,1.106 45%,1.076 50%,1.018 60%,.989 70%,.985 80%,.992 90%,1);
+ --ease-out:cubic-bezier(0,0,.58,1);--ease-in:cubic-bezier(.42,0,1,1);
+ --d-smooth:.5s;--d-snappy:.45s;--d-bouncy:.65s;
+}
+@supports not (transition-timing-function:linear(0,1)){
+ :root{--ease-smooth:cubic-bezier(.22,1,.36,1);--ease-snappy:cubic-bezier(.25,1.1,.4,1);--ease-bouncy:cubic-bezier(.3,1.5,.5,1)}
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{font-optical-sizing:auto;-webkit-text-size-adjust:100%}
+body{background:#FBEDF1;color:var(--ink);font:400 17px/22px var(--sans);-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ================= presentation layout (outside the phone) ================= */
+.wrap{display:grid;grid-template-columns:minmax(280px,360px) auto;gap:56px;align-items:center;justify-content:center;min-height:100vh;padding:32px 24px}
+.side .k{margin:0 0 8px;font:600 13px/18px var(--sans);color:var(--accent-ink)}
+.side h1{font:400 48px/1 var(--serif);letter-spacing:-.02em;margin:0 0 12px}
+.side>p{margin:0 0 16px;color:var(--ink-2);font:400 15px/21px var(--sans)}
+.ctl{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.ctl .lab{font:600 13px/18px var(--sans);color:var(--ink-2)}
+.seg{display:flex;background:var(--fill);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:transparent;min-height:34px;border-radius:9px;font:600 13px/18px var(--sans);color:var(--ink-2);cursor:pointer}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(58,15,34,.12)}
+.steps{list-style:none;margin:0;padding:0 6px 0 0;display:flex;flex-direction:column;gap:1px;max-height:34vh;overflow:auto}
+.steps .g{font:600 13px/18px var(--sans);color:var(--ink-2);margin:12px 12px 4px}
+.steps button{width:100%;border:0;background:transparent;text-align:left;min-height:34px;padding:0 12px;border-radius:10px;font:400 15px/20px var(--sans);color:var(--ink);cursor:pointer;display:flex;gap:10px;align-items:center}
+.steps button i{font:600 12px/1 var(--sans);font-style:normal;width:18px;color:var(--ink-3)}
+.steps button:hover{background:var(--fill)}
+.steps button.on{background:var(--accent);color:#fff}.steps button.on i{color:#FFD0DE}
+.why{margin-top:16px;background:#fff;border-radius:16px;padding:14px 16px;box-shadow:0 1px 2px rgba(58,15,34,.06);font:400 14px/20px var(--sans);color:var(--ink-2)}
+.why b{display:block;font:600 13px/18px var(--sans);color:var(--accent-ink);margin-bottom:4px}
+.hint{text-align:center;color:var(--ink-2);font:400 13px/18px var(--sans);margin:16px 0 0}
+
+/* ================= phone ================= */
+.phone{width:390px;height:844px;border-radius:54px;position:relative;overflow:hidden;overflow:clip;background:#0B0A10;box-shadow:0 0 0 2px #E7B7C2,0 0 0 11px #FBE3E8,0 0 0 12px #DDA3B1,0 40px 80px -30px rgba(58,15,34,.35);isolation:isolate}
+.phone::before{content:"";position:absolute;top:11px;left:50%;width:126px;height:37px;margin-left:-63px;border-radius:19px;background:#0B0A10;z-index:30}
+.sbar{position:absolute;top:0;left:0;right:0;height:54px;z-index:25;display:flex;justify-content:space-between;align-items:center;padding:14px 32px 0 48px;pointer-events:none;color:var(--ink);transition:color .3s}
+.sbar b{font:600 17px/22px -apple-system,"SF Pro Text","Inter",sans-serif}
+.sbar span{display:flex;gap:6px;align-items:center}
+.phone.presenting .sbar,.phone.dark-sb .sbar{color:#fff}
+.hind{position:absolute;left:50%;bottom:8px;width:139px;height:5px;margin-left:-69.5px;border-radius:3px;background:rgba(58,15,34,.85);z-index:40;pointer-events:none}
+.phone.dark-sb .hind{background:rgba(255,255,255,.75)}
+#view{position:absolute;inset:0;z-index:1;overflow:hidden;border-radius:54px;transform-origin:50% 0;
+ transition:transform var(--d-smooth) var(--ease-smooth),border-radius var(--d-smooth) var(--ease-smooth)}
+.phone.presenting #view{transform:translateY(14px) scale(.94);border-radius:38px}
+.page{position:absolute;inset:0;background:var(--page);overflow:hidden}
+.scr{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:60px var(--s4) 120px;display:flex;flex-direction:column;gap:var(--s6);scrollbar-width:none;overscroll-behavior:contain}
+.scr::-webkit-scrollbar{display:none}
+.scr>*{flex-shrink:0}
+.scr.has-nb{padding-top:106px}
+.scr.dock{padding-bottom:204px}.scr.chat{padding-bottom:232px}.scr.chat.has-nb{padding-top:118px}.scr.plain{padding-bottom:40px}
+
+/* page transitions: push/pop with 30% parallax + dim, modal up/down, tab crossfade */
+.page.in-fwd{animation:pushIn var(--d-smooth) var(--ease-smooth) both;box-shadow:-10px 0 30px rgba(58,15,34,.10)}
+.page.out-fwd{animation:pushOut var(--d-smooth) var(--ease-smooth) both}
+.page.in-bck{animation:popIn var(--d-smooth) var(--ease-smooth) both}
+.page.out-bck{z-index:2;animation:popOut var(--d-smooth) var(--ease-smooth) both;box-shadow:-10px 0 30px rgba(58,15,34,.10)}
+.page.in-up{animation:upIn var(--d-smooth) var(--ease-smooth) both}
+.page.out-down{z-index:3;animation:downOut .42s var(--ease-smooth) both}
+.page.out-fwd::after,.page.in-bck::after,.page.out-up::after,.page.in-down::after{content:"";position:absolute;inset:0;background:#14040C;pointer-events:none;z-index:9}
+.page.out-fwd::after,.page.out-up::after{animation:dimIn var(--d-smooth) var(--ease-smooth) both}
+.page.in-bck::after,.page.in-down::after{animation:dimOut var(--d-smooth) var(--ease-smooth) both}
+.page.out-up{animation:hold var(--d-smooth) linear both}
+.page.in-down{animation:hold .42s linear both}
+.page.in-tab{animation:fadeIn .18s var(--ease-out) both}
+.page.out-tab{animation:fadeOut .18s var(--ease-out) both}
+.page.in-fade{animation:fadeIn .2s linear both}.page.out-fade{animation:fadeOut .2s linear both}
+@keyframes pushIn{from{transform:translateX(100%)}}
+@keyframes pushOut{to{transform:translateX(-30%)}}
+@keyframes popIn{from{transform:translateX(-30%)}}
+@keyframes popOut{to{transform:translateX(100%)}}
+@keyframes upIn{from{transform:translateY(100%)}}
+@keyframes downOut{to{transform:translateY(100%)}}
+@keyframes dimIn{from{opacity:0}to{opacity:.12}}
+@keyframes dimOut{from{opacity:.12}to{opacity:0}}
+@keyframes fadeIn{from{opacity:0}}@keyframes fadeOut{to{opacity:0}}
+@keyframes hold{to{opacity:1}}
+
+/* ================= Liquid Glass (floating chrome + controls only) ================= */
+.gl{position:relative;background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);border:0;
+ box-shadow:inset 0 0 0 .5px rgba(255,255,255,.75),inset 0 1px 0 rgba(255,255,255,.9),inset 0 -.5px 0 rgba(58,15,34,.08),0 8px 24px rgba(58,15,34,.10),0 1px 2px rgba(58,15,34,.06)}
+.gl::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(120% 70% at 25% 0%,rgba(255,255,255,.5),transparent 55%);opacity:.7;transition:opacity .2s}
+.gl:active::after{opacity:1}
+
+/* ================= type (iOS Dynamic Type "Large") ================= */
+.lt{display:flex;flex-direction:column;gap:2px}
+.lt h1,.t-large{font:700 34px/41px var(--sans);margin:0;color:var(--ink)}
+.t1{font:700 28px/34px var(--sans);margin:0}
+.t2{font:700 22px/28px var(--sans);margin:0}
+.t3,.sec-h{font:600 20px/25px var(--sans);margin:0}
+.hl{font:600 17px/22px var(--sans)}
+.body{font:400 17px/22px var(--sans)}
+.lead{font:400 17px/22px var(--sans);color:var(--ink-2);margin:0;text-wrap:balance}
+.sub{font:400 15px/20px var(--sans);color:var(--ink-2);margin:0}
+.foot{font:400 13px/18px var(--sans);color:var(--ink-2);margin:0}
+.cap{font:400 12px/16px var(--sans);color:var(--ink-2);margin:0}
+.display{font:400 40px/44px var(--serif);letter-spacing:-.02em;margin:0;color:var(--ink);text-wrap:balance}
+.num{font-family:var(--serif);font-weight:400;line-height:.9;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.row{display:flex;align-items:center;gap:var(--s3)}.col{display:flex;flex-direction:column;gap:var(--s2)}.sb{justify-content:space-between}.ctr{align-items:center;text-align:center}.grow{flex:1;min-width:0}
+.sec-h{margin:0 var(--s1)}
+
+/* ================= components ================= */
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn{border:0;border-radius:999px;min-height:52px;width:100%;padding:0 var(--s5);display:flex;align-items:center;justify-content:center;gap:var(--s2);font:600 17px/22px var(--sans);cursor:pointer;
+ transition:transform .35s var(--ease-snappy),filter .2s}
+.btn:active{transform:scale(.97);filter:brightness(.94);transition:transform .08s var(--ease-out),filter .08s}
+.btn.pri{background:var(--accent);color:#fff}
+.btn.gl{color:var(--ink)}
+.btn.txt{background:transparent;color:var(--accent-ink);font-weight:400;min-height:44px}
+.btn.sm{min-height:44px;font-size:15px;width:auto;padding:0 var(--s5)}
+.gbtn{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:0;cursor:pointer;flex:none;color:var(--ink);transition:transform .35s var(--ease-snappy)}
+.gbtn svg.i{width:22px;height:22px;stroke-width:2.4}
+.gbtn:active{transform:scale(1.06);transition-duration:.1s}
+.card{background:var(--bg-elev);border:0;border-radius:var(--r-l);padding:var(--s4)}
+.chip{min-height:44px;padding:0 14px;border-radius:999px;border:0;font:600 15px/20px var(--sans);display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:var(--ink);font-variant-numeric:tabular-nums;transition:transform .35s var(--ease-snappy)}
+.chip:active{transform:scale(1.06);transition-duration:.1s}
+
+/* nav bar: large title collapses into inline title; iOS 26 scroll-edge effect */
+.nb{position:absolute;top:54px;left:0;right:0;height:52px;padding:0 var(--s4);display:flex;align-items:center;justify-content:space-between;gap:var(--s2);z-index:5}
+.nb::before{content:"";position:absolute;left:0;right:0;top:-54px;bottom:-20px;z-index:-1;background:linear-gradient(var(--bg) 50%,rgba(255,245,247,0));
+ -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);-webkit-mask:linear-gradient(#000 55%,transparent);mask:linear-gradient(#000 55%,transparent);opacity:0;transition:opacity .2s;pointer-events:none}
+.scrolled .nb::before,.chat-nb::before{opacity:1}
+.nb-sp{min-width:44px}
+.nb-r{min-width:44px;display:flex;justify-content:flex-end}
+.nb-t{position:absolute;left:100px;right:100px;text-align:center;font:600 17px/22px var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.nb-t.inl{opacity:0;transform:translateY(6px);transition:opacity .18s,transform .25s var(--ease-smooth)}
+.scrolled .nb-t.inl{opacity:1;transform:none}
+.nb-link{border:0;background:none;min-height:44px;padding:0 4px;font:400 17px/22px var(--sans);color:var(--accent-ink);cursor:pointer}
+
+/* grouped inset list */
+.list{background:var(--bg-elev);border-radius:var(--r-l);overflow:hidden}
+.row-i{position:relative;display:flex;align-items:center;gap:var(--s3);width:100%;min-height:44px;padding:11px var(--s4);border:0;background:transparent;text-align:left;font:400 17px/22px var(--sans);color:var(--ink);cursor:pointer;transition:background .3s var(--ease-out)}
+button.row-i:active{background:var(--fill);transition:none}
+div.row-i{cursor:default}
+.row-i+.row-i::before{content:"";position:absolute;top:0;right:0;left:var(--s4);height:.5px;background:var(--sep)}
+.row-i.has-ico+.row-i.has-ico::before{left:58px}
+.row-i .grow{display:flex;flex-direction:column}
+.row-i .rs{font:400 13px/18px var(--sans);color:var(--ink-2)}
+.row-i .val{margin-left:auto;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:4px}
+.row-i .chev{color:var(--ink-3);display:flex;margin-right:-4px}.row-i .chev svg{width:14px;height:14px;stroke-width:2.6}
+.ico-sq{width:30px;height:30px;border-radius:var(--r-xs);display:grid;place-items:center;flex:none;background:var(--accent);color:#fff}
+.ico-sq svg.i{width:18px;height:18px}
+.ico-sq.ok{background:var(--success)}.ico-sq.neu{background:#8E7280}.ico-sq.dg{background:var(--danger)}
+.ico-c{width:30px;height:30px;display:grid;place-items:center;flex:none}
+.ok-g{width:30px;display:grid;place-items:center;color:var(--success);flex:none}.ok-g svg.i{width:20px;height:20px;stroke-width:2.6}
+.sec-f{margin:var(--s2) var(--s4) 0}
+
+/* switch (UISwitch metrics) */
+.sw{width:51px;height:31px;border-radius:16px;background:rgba(120,120,128,.16);position:relative;border:0;flex:none;cursor:pointer;transition:background .25s var(--ease-out)}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:27px;height:27px;border-radius:14px;background:#fff;box-shadow:0 3px 8px rgba(0,0,0,.15),0 1px 1px rgba(0,0,0,.16);
+ transition:left var(--d-snappy) var(--ease-snappy),width .2s var(--ease-out)}
+.sw:active::after{width:33px}
+.sw.on{background:var(--switch-on)}.sw.on::after{left:22px}.sw.on:active::after{left:16px}
+
+/* home hero (the one gradient surface) */
+.hero{border:0;text-align:left;color:#fff;border-radius:var(--r-xl);padding:var(--s5);display:flex;flex-direction:column;gap:var(--s1);background:var(--hero);cursor:pointer;width:100%;
+ transition:transform .35s var(--ease-snappy)}.hero:active{transform:scale(.98);transition-duration:.08s}
+.hero-k{display:flex;align-items:center;gap:6px;font:600 15px/20px var(--sans)}.hero-k svg.i{width:18px;height:18px}
+.hero-n{display:flex;align-items:baseline;gap:var(--s2);margin-top:var(--s1)}.hero-u{font:600 20px/25px var(--sans)}
+.hero-p{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.3);margin-top:var(--s3)}.hero-p i{display:block;height:100%;border-radius:2px;background:#fff}
+.hero-f{font:400 15px/20px var(--sans);color:#fff}
+
+/* plan screen */
+.pbar{display:block;height:4px;border-radius:2px;background:var(--fill);overflow:hidden}.pbar i{display:block;height:100%;border-radius:2px;background:var(--accent)}
+.dn{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;flex:none;font:600 13px/1 var(--sans);background:var(--fill);color:var(--ink);font-variant-numeric:tabular-nums}
+.dn svg.i{width:14px;height:14px;stroke-width:2.6}.dn.done{background:var(--success-soft);color:var(--success)}.dn.today{background:var(--accent);color:#fff}.dn.lock{color:var(--ink-3)}
+
+/* paywall */
+.strip{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;padding:0 var(--s2)}.strip i{height:8px;border-radius:4px;background:var(--fill)}
+.strip i.d{background:var(--success)}.strip i.t{background:var(--accent)}
+.ben{list-style:none;margin:0;padding:0 var(--s1);display:flex;flex-direction:column;gap:var(--s4)}
+.ben li{display:flex;gap:var(--s3);align-items:flex-start}.ben li svg.i{color:var(--accent);width:24px;height:24px;margin-top:-1px}
+.ben b{display:block;font:600 17px/22px var(--sans)}.ben small{display:block;font:400 15px/20px var(--sans);color:var(--ink-2)}
+.plans{position:relative;background:var(--bg-elev);border-radius:var(--r-l);padding:4px;display:flex;flex-direction:column}
+.plan-hl{position:absolute;left:4px;right:4px;top:0;height:var(--h,72px);transform:translateY(var(--y,4px));border-radius:18px;background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent);
+ transition:transform var(--d-snappy) var(--ease-snappy),height var(--d-snappy) var(--ease-snappy);pointer-events:none}
+.plan-hl.no-t{transition:none}
+.plan{position:relative;z-index:1;border:0;background:transparent;border-radius:18px;padding:14px var(--s4);min-height:72px;display:flex;align-items:center;gap:var(--s3);text-align:left;font:inherit;color:var(--ink);cursor:pointer;transition:transform .35s var(--ease-snappy);width:100%}
+.plan:active{transform:scale(.98);transition-duration:.08s}
+.plan .rad{width:22px;height:22px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink-3);display:grid;place-items:center;flex:none;transition:background .2s,box-shadow .2s}
+.plan.on .rad{background:var(--accent);box-shadow:none}
+.plan .rad svg{width:12px;height:12px;stroke:#fff;stroke-width:3.2;transform:scale(0);transition:transform .15s var(--ease-in)}
+.plan.on .rad svg{transform:scale(1);transition:transform var(--d-bouncy) var(--ease-bouncy)}
+.plan .grow{display:flex;flex-direction:column}
+.plan .pt{font:600 17px/22px var(--sans)}.plan .ps{font:400 13px/18px var(--sans);color:var(--ink-2)}
+.plan .save{font:600 13px/18px var(--sans);color:var(--success);margin-left:6px}
+.plan .pr{margin-left:auto;text-align:right;font:600 17px/22px var(--sans);font-variant-numeric:tabular-nums}.plan .pr small{display:block;font:400 13px/18px var(--sans);color:var(--ink-2)}
+.tl-wrap{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows var(--d-smooth) var(--ease-smooth),opacity .2s;margin-top:calc(var(--s6) * -1)}
+.tl-wrap.open{grid-template-rows:1fr;opacity:1;margin-top:0}.tl-wrap>*{min-height:0;overflow:hidden}
+.tl{display:flex;flex-direction:column}
+.tl .st{display:flex;gap:var(--s3);position:relative;padding-bottom:var(--s4);align-items:flex-start}
+.tl .st:last-child{padding-bottom:0}
+.tl .st::before{content:"";position:absolute;left:13.5px;top:32px;bottom:4px;width:1px;background:var(--sep)}
+.tl .st:last-child::before{display:none}
+.tl .dot{width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.tl .dot svg.i{width:15px;height:15px;stroke-width:2.4}
+.tl .st.first .dot{background:var(--accent);color:#fff}
+.tl b{display:block;font:600 15px/20px var(--sans)}.tl .grow span{display:block;font:400 15px/20px var(--sans);color:var(--ink-2)}
+.tl .sw{margin-top:2px}
+.pw-priv{display:flex;align-items:center;justify-content:center;gap:6px}.pw-priv svg.i{width:14px;height:14px}
+.swap{transition:opacity .12s}.swap.out{opacity:0}
+
+/* compare table */
+.cmp{display:grid;grid-template-columns:1fr 70px 82px;align-items:center;font:400 15px/20px var(--sans)}
+.cmp>div{min-height:44px;display:flex;align-items:center;border-bottom:.5px solid var(--sep)}
+.cmp>div:nth-last-child(-n+3){border:0}
+.cmp .hd{font:600 13px/18px var(--sans);color:var(--ink-2);justify-content:center}
+.cmp .c{justify-content:center;color:var(--ink-2)}.cmp .c.no{color:var(--ink-3)}
+.cmp .p{justify-content:center;color:var(--accent-ink);font-weight:600;background:var(--accent-soft)}
+.cmp .p svg.i{width:18px;height:18px;color:var(--accent);stroke-width:2.6}
+.cmp .p.hd{color:var(--accent-ink);border-radius:12px 12px 0 0}
+.cmp .p.last{border-radius:0 0 12px 12px}
+
+/* dock (iOS 26 bottom scroll-edge, solid under text) */
+.dockbar{position:absolute;left:0;right:0;bottom:0;z-index:10;padding:var(--s6) var(--s4) 30px;background:linear-gradient(to top,var(--bg) calc(100% - 24px),rgba(255,245,247,0));display:flex;flex-direction:column;gap:var(--s2)}
+.dockbar .fine{font:400 13px/18px var(--sans);color:var(--ink-2);text-align:center;margin:0}
+.dockbar .links{display:flex;justify-content:center;align-items:center;gap:var(--s2);color:var(--ink-3);margin:-8px 0 -12px}
+.dockbar .links button{border:0;background:none;font:400 13px/18px var(--sans);color:var(--ink-2);min-height:44px;cursor:pointer;padding:0 4px}
+
+/* tab bar (persistent, floating glass, sliding capsule) */
+.tabbar{position:absolute;left:20px;right:92px;bottom:20px;height:62px;border-radius:31px;padding:4px;display:grid;grid-template-columns:repeat(4,1fr);z-index:10;
+ transition:transform var(--d-smooth) var(--ease-smooth),opacity .2s}
+.tabbar.hidden,.sosb.hidden{transform:translateY(calc(100% + 28px));opacity:0;pointer-events:none}
+.tcap{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/4);border-radius:27px;background:rgba(58,15,34,.08);
+ transform:translateX(calc(var(--i,0)*100%));transition:transform var(--d-snappy) var(--ease-snappy)}
+.tcap.moving{animation:squish .45s var(--ease-smooth)}
+@keyframes squish{40%{scale:1.12 .94}}
+.tabbar button{position:relative;z-index:1;border:0;background:transparent;border-radius:27px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+ font:600 10px/12px var(--sans);color:var(--ink);cursor:pointer;transition:transform .35s var(--ease-snappy),color .2s}
+.tabbar button svg.i{width:24px;height:24px;stroke-width:1.8}
+.tabbar button.on{color:var(--accent)}.tabbar button.on svg.i{fill:currentColor;fill-opacity:.16}
+.tabbar button:active{transform:scale(.92);transition-duration:.08s}
+.sosb{position:absolute;right:20px;bottom:20px;width:62px;height:62px;border-radius:50%;z-index:10;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+ color:var(--danger);font:600 10px/12px var(--sans);cursor:pointer;transition:transform .35s var(--ease-snappy),opacity .2s}
+.sosb svg.i{width:24px;height:24px}
+.sosb:active{transform:scale(1.06);transition-duration:.1s}
+
+/* chat */
+.chat-id{position:absolute;left:50%;top:2px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:2px;font:400 11px/13px var(--sans);color:var(--ink)}
+.bub{max-width:78%;padding:7px 12px;border-radius:18px;font:400 17px/22px var(--sans)}
+.bub.ai{background:var(--bg-elev);color:var(--ink);align-self:flex-start}
+.bub.me{background:var(--accent);color:#fff;align-self:flex-end}
+.bub.cont{margin-top:-8px}
+.typing{display:flex;gap:5px;padding:13px 14px}.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-3);animation:ty 1.2s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes ty{0%,60%,100%{opacity:.4;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+.composer{position:absolute;left:var(--s4);right:var(--s4);bottom:96px;z-index:10;display:flex;flex-direction:column;gap:var(--s2)}
+.meter{align-self:center;display:flex;align-items:center;gap:var(--s2);padding:4px 4px 4px 14px;border-radius:999px;font:600 13px/18px var(--sans);min-height:40px}
+.meter i{display:flex;gap:3px}.meter i b{width:6px;height:6px;border-radius:50%;background:var(--accent)}.meter i b.off{background:var(--ink-3)}
+.meter button{border:0;background:var(--accent);color:#fff;font:600 13px/18px var(--sans);border-radius:999px;min-height:32px;padding:0 12px;cursor:pointer}
+.meter.sos{color:var(--success);padding-right:14px}.meter.sos svg.i{width:16px;height:16px}
+.inp{display:flex;align-items:center;gap:var(--s2);border-radius:22px;padding:4px 4px 4px 16px}
+.inp input{flex:1;border:0;background:transparent;font:400 17px/22px var(--sans);color:var(--ink);min-height:36px;outline:none;min-width:0}
+.inp input::placeholder{color:var(--ink-3)}
+.send{width:36px;height:36px;border-radius:50%;border:0;background:var(--accent);color:#fff;display:grid;place-items:center;cursor:pointer;transform:scale(0);opacity:0;transition:transform .3s var(--ease-snappy),opacity .15s}
+.send svg.i{width:18px;height:18px;stroke-width:2.6}
+.inp.has-text .send{transform:scale(1);opacity:1}
+
+/* analysis */
+.split{display:flex;height:8px;border-radius:4px;overflow:hidden;background:rgba(58,15,34,.14)}.split i{display:block;background:var(--accent)}
+.pat{display:flex;gap:var(--s3);align-items:flex-start;font:400 17px/22px var(--sans)}
+.pn{font:600 15px/22px var(--sans);color:var(--accent-ink);width:14px;flex:none;font-variant-numeric:tabular-nums}
+.lockwrap{position:relative;border-radius:var(--r-s);overflow:hidden}
+.lockwrap .blur{filter:blur(5px);user-select:none;pointer-events:none}
+.lockwrap .ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:6px;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.85));font:600 15px/20px var(--sans);color:var(--accent-ink)}
+.lockwrap .ov svg.i{width:16px;height:16px}
+.mira-note{display:flex;gap:var(--s2);align-items:flex-start;padding:0 var(--s1)}.mira-note svg{flex:none;margin-top:-1px}
+
+/* coins */
+.bal{display:flex;align-items:baseline;gap:var(--s2);padding:0 var(--s1)}.bal svg{align-self:center}
+.dgt{display:inline-block;height:1em;line-height:1;overflow:hidden;vertical-align:-.1em}
+.dgts{display:flex;flex-direction:column;transform:translateY(calc(var(--d)*-1em));transition:transform .6s var(--ease-snappy);transition-delay:calc(var(--k)*40ms)}
+.dgts span{height:1em;display:block}
+.get{min-width:76px;height:30px;padding:0 14px;border-radius:15px;background:var(--accent-soft);color:var(--accent-ink);font:600 15px/30px var(--sans);text-align:center;font-variant-numeric:tabular-nums;flex:none}
+.cval{display:inline-flex;align-items:center;gap:4px;color:var(--ink);font-weight:600}
+
+/* me */
+.me-h{display:flex;align-items:center;gap:var(--s3);padding:0 var(--s1)}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font:600 22px/1 var(--sans);flex:none}
+
+/* trial status */
+.ring-w{position:relative;width:100px;height:100px;flex:none;display:grid;place-items:center}.ring-w svg{position:absolute;inset:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);padding:var(--s4) 0}
+.stats>div{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:0 var(--s2)}
+.stats>div+div{border-left:.5px solid var(--sep)}
+.stats b{font:700 28px/34px var(--sans);font-variant-numeric:tabular-nums}
+.price-xl{font:700 34px/41px var(--sans);font-variant-numeric:tabular-nums}
+
+/* mascot stage */
+.stage{position:relative;display:flex;align-items:center;justify-content:center;flex:none}
+.stage>div:not(.disc){position:relative}
+.disc{position:absolute;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.95),rgba(255,214,226,.5) 55%,transparent 72%)}
+.breath{animation:br 8s ease-in-out infinite}@keyframes br{50%{transform:scale(1.14)}}
+.cue{position:relative;height:22px;width:100%;margin:0;font:600 17px/22px var(--sans);color:var(--ink-2);text-align:center}
+.cue span{position:absolute;inset:0;animation:cue 8s ease-in-out infinite}.cue span+span{animation-delay:-4s}
+@keyframes cue{0%,45%{opacity:1}50%,95%{opacity:0}100%{opacity:1}}
+.lb{transform-box:fill-box;transform-origin:center;animation:blink 5.5s infinite}
+@keyframes blink{0%,94%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.win{animation:winIn var(--d-bouncy) var(--ease-bouncy) both}
+@keyframes winIn{from{transform:scale(.7);opacity:0}}
+.win .disc{animation:glow 1.1s var(--ease-out) both}
+@keyframes glow{0%{opacity:.3;transform:scale(.7)}45%{opacity:1;transform:scale(1.12)}100%{opacity:1;transform:scale(1)}}
+.page.in-fwd .welcome-list .row-i{animation:fadeIn .3s var(--ease-out) both}
+.welcome-list .row-i:nth-child(1){animation-delay:.12s}.welcome-list .row-i:nth-child(2){animation-delay:.18s}.welcome-list .row-i:nth-child(3){animation-delay:.24s}.welcome-list .row-i:nth-child(4){animation-delay:.3s}
+
+/* lock screen + notification */
+.lock-scr{position:absolute;inset:0;background:linear-gradient(180deg,#C2185B 0%,#E54C7E 55%,#F59AB4 100%)}
+.ls{position:relative;text-align:center;color:#fff;margin-top:var(--s4)}
+.ls-date{font:600 20px/25px var(--sans)}
+.ls-time{font:700 96px/1 -apple-system,"SF Pro Rounded","Inter",sans-serif;letter-spacing:-.03em;text-shadow:0 1px 20px rgba(120,0,40,.15)}
+.notif{margin-top:auto;margin-bottom:96px;border-radius:24px;padding:14px;display:flex;gap:var(--s3);align-items:flex-start;text-align:left;cursor:pointer;color:var(--ink);background:rgba(255,255,255,.62);width:100%}
+.n-top{display:flex;justify-content:space-between;gap:var(--s2);font:600 15px/20px var(--sans)}.n-top time{font:400 13px/18px var(--sans);color:var(--ink-2)}
+.n-body{display:block;font:400 15px/20px var(--sans)}
+.ls-acts{position:absolute;left:46px;right:46px;bottom:44px;display:flex;justify-content:space-between}
+.ls-acts span{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:#fff;background:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.appi{display:grid;place-items:center;background:var(--hero);box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08);flex:none}
+
+/* overlays: sheets scale the app behind */
+#ov{position:absolute;inset:0;z-index:20;display:none}#ov.open{display:block}#ov.closing{pointer-events:none}
+#ovbg{position:absolute;inset:0;background:rgba(20,4,12,.22);animation:fadeIn .35s var(--ease-out)}
+.sheet{position:absolute;left:8px;right:8px;bottom:8px;border-radius:var(--r-sheet);padding:var(--s2) var(--s5) var(--s6);display:flex;flex-direction:column;gap:var(--s4);
+ max-height:88%;overflow:auto;background:rgba(255,250,251,.86);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.7),0 20px 60px rgba(20,4,12,.25);animation:sheetIn var(--d-smooth) var(--ease-smooth) both}
+@keyframes sheetIn{from{transform:translateY(calc(100% + 16px))}}
+#ov.closing .sheet,#ov.closing .sk{animation:sheetOut .3s var(--ease-in) forwards}
+#ov.closing #ovbg{animation:fadeOut .3s var(--ease-in) forwards}
+@keyframes sheetOut{to{transform:translateY(calc(100% + 16px))}}
+.grab{width:36px;height:5px;border-radius:3px;background:var(--ink-3);align-self:center;flex:none}
+.sheet .list{background:#fff}
+.sheet .opt{display:flex;flex-direction:column;gap:6px}
+.sheet .link{border:0;background:none;min-height:44px;font:400 15px/20px var(--sans);color:var(--accent-ink);cursor:pointer;text-align:center}
+.row-i .chk{margin-left:auto;color:var(--accent);opacity:0;transition:opacity .15s}.row-i .chk svg.i{stroke-width:2.6}
+.row-i.on .chk{opacity:1}
+.btn .coinic{display:inline-flex}
+
+/* StoreKit 2 purchase sheet (system look) */
+.sk{position:absolute;left:0;right:0;bottom:0;background:#F2F2F7;border-radius:var(--r-sheet) var(--r-sheet) 0 0;padding:var(--s5) var(--s4) 34px;
+ font-family:-apple-system,"SF Pro Text","Inter",sans-serif;color:#000;display:flex;flex-direction:column;gap:var(--s3);animation:sheetIn .45s var(--ease-smooth) both}
+.sk-top{display:flex;gap:var(--s3);align-items:flex-start}
+.sk-t{display:block;font:600 17px/22px -apple-system,"SF Pro Text","Inter",sans-serif}.sk-m{display:block;font:400 13px/18px -apple-system,"SF Pro Text","Inter",sans-serif;color:#6C6C70}
+.sk-x{width:30px;height:30px;border-radius:50%;border:0;background:rgba(120,120,128,.16);color:#6C6C70;display:grid;place-items:center;cursor:pointer;position:relative;flex:none}
+.sk-x::before{content:"";position:absolute;inset:-7px}
+.sk-x svg.i{width:14px;height:14px;stroke-width:2.6}
+.sk-box{background:#fff;border-radius:var(--r-m);padding:var(--s4);display:flex;flex-direction:column;gap:2px}
+.sk-big{font:700 22px/28px -apple-system,"SF Pro Text","Inter",sans-serif}
+.sk-fine{font:400 13px/18px -apple-system,"SF Pro Text","Inter",sans-serif;color:#6C6C70;margin-top:var(--s2)}
+.sk-acct{flex-direction:row;justify-content:space-between;font:400 15px/20px -apple-system,"SF Pro Text","Inter",sans-serif}.sk-acct span:first-child{color:#6C6C70}
+.sk-cta{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--s2);padding:var(--s3) 0 0;font:400 15px/20px -apple-system,"SF Pro Text","Inter",sans-serif;color:#000;cursor:pointer;min-height:96px;width:100%}
+.sk-done{font:600 17px/22px -apple-system,"SF Pro Text","Inter",sans-serif;color:#000}
+.sidehint{position:absolute;right:0;top:170px;z-index:45;display:flex;align-items:center;gap:8px;pointer-events:none;animation:sh 1.6s ease-in-out infinite}
+.sidehint span{background:#fff;color:#000;font:600 12px/15px -apple-system,"Inter",sans-serif;text-align:right;padding:7px 10px;border-radius:10px;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.sidehint i{width:5px;height:64px;border-radius:3px 0 0 3px;background:#007AFF}
+@keyframes sh{50%{transform:translateX(-6px)}}
+.spin{width:28px;height:28px;border-radius:50%;border:3px solid rgba(60,60,67,.18);border-top-color:#8E8E93;animation:rot .8s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+.okc{width:56px;height:56px;border-radius:50%;border:3px solid #007AFF;color:#007AFF;display:grid;place-items:center;animation:pop var(--d-bouncy) var(--ease-bouncy) both}
+.okc svg{width:28px;height:28px;stroke-width:3;stroke-dasharray:24;stroke-dashoffset:24;animation:draw .35s .15s var(--ease-out) forwards}
+@keyframes pop{from{transform:scale(.6);opacity:0}}@keyframes draw{to{stroke-dashoffset:0}}
+
+/* toast as Dynamic Island HUD */
+.toast{position:absolute;top:11px;left:50%;transform:translateX(-50%);z-index:50;height:37px;min-width:126px;padding:0 18px;border-radius:19px;background:#0B0A10;color:#fff;
+ font:600 15px/20px var(--sans);display:flex;gap:var(--s2);align-items:center;justify-content:center;white-space:nowrap;pointer-events:none;
+ clip-path:inset(0 calc(50% - 63px) round 19px);opacity:0;transition:clip-path var(--d-snappy) var(--ease-snappy),opacity .12s}
+.toast.show{clip-path:inset(0 0 round 19px);opacity:1}
+.toast svg{color:#34C759;width:18px;height:18px}
+
+@media (prefers-reduced-transparency:reduce){.gl,.sheet,.notif{background:#fff;-webkit-backdrop-filter:none;backdrop-filter:none}.gl::after{display:none}}
+@media (prefers-reduced-motion:reduce){
+ .page[class*="in-"]{animation:fadeIn .2s linear both!important;transform:none!important}
+ .page[class*="out-"]{animation:fadeOut .2s linear both!important;transform:none!important}
+ .page::after{display:none!important}
+ .sheet,.sk{animation:fadeIn .2s linear both}#ov.closing .sheet,#ov.closing .sk{animation:fadeOut .2s linear forwards}
+ .phone.presenting #view{transform:none;border-radius:54px}
+ .tcap,.plan-hl,.sw::after,.toast,.dgts,.tabbar,.sosb,.tl-wrap{transition-duration:0s!important}
+ .tcap.moving{animation:none}
+ .btn:active,.plan:active,.hero:active,.chip:active,.gbtn:active,.sosb:active{transform:none}
+ .win,.win .disc,.okc,.okc svg,.welcome-list .row-i{animation:none!important}.okc svg{stroke-dashoffset:0}
+ .plan.on .rad svg{transition:none}
+ .breath,.lb,.cue span,.sidehint{animation:none}.cue span+span{display:none}
+ .typing i{animation:none;opacity:.6}
+}
+@media(max-width:860px){.wrap{grid-template-columns:1fr;gap:28px;padding:24px 8px}.side{order:2;max-width:390px;margin:0 auto}.side h1{font-size:40px}.pw{display:flex;justify-content:center}}
+@media(max-width:420px){.phone{zoom:.86}}
+@media(max-width:500px){
+ html,body{height:100%;background:#FFF5F7;overflow:hidden}
+ .wrap{display:block;padding:0;min-height:0}.side,.hint,.sbar,.hind{display:none}
+ .phone{width:100vw;height:100dvh;border-radius:0;box-shadow:none;zoom:1}.phone::before{display:none}
+ #view{border-radius:0}
+ .scr{padding-top:calc(16px + env(safe-area-inset-top))}
+ .page .nb{top:env(safe-area-inset-top)}
+ .scr.has-nb{padding-top:calc(60px + env(safe-area-inset-top))}
+ .scr.chat.has-nb{padding-top:calc(72px + env(safe-area-inset-top))}
+ .nb::before{top:0}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside class="side">
+ <p class="k">MyEx · Glass Premium</p>
+ <h1>The money flow, done gently.</h1>
+ <p>The monetization flow of MyEx in iOS 26 Liquid Glass: personal paywall, honest trial, coins, soft limits at the right moment, and retention. Every screen is clickable and remembers what you do.</p>
+ <div class="ctl">
+  <span class="lab">User state</span>
+  <div class="seg" id="segMode"><button data-mode="free">Free</button><button data-mode="trial">Trial</button><button data-mode="annual">Premium</button></div>
+  <span class="lab">Paywall test</span>
+  <div class="seg" id="segVar"><button data-var="A">A · Timeline</button><button data-var="B">B · Compare</button></div>
+  <div class="seg"><button id="reset">Reset demo</button></div>
+ </div>
+ <ol class="steps" id="steps"></ol>
+ <div class="why" id="why"></div>
+</aside>
+<div class="pw"><div>
+ <div class="phone" id="phone"><div id="view"></div></div>
+ <p class="hint">Example prices. Change them in CFG at the top of the script.</p>
+</div></div>
+</div>
+
+<script>
+/* ======================= CONFIG (edit prices here) ======================= */
+const CFG={
+ name:'Selin',what:'They left me',
+ annual:{id:'myex_premium_annual',price:49.99,trial:7},
+ monthly:{id:'myex_premium_monthly',price:12.99},
+ offer:{id:'myex_annual_intro_50',price:24.99},            // one-time exit offer (intro price)
+ winback:{id:'myex_winback_3m',price:9.99,months:3},       // promotional offer for lapsed users
+ packs:[{id:'coins_30',n:30,bonus:0,price:2.99},{id:'coins_80',n:80,bonus:10,price:6.99,tag:'Popular'},{id:'coins_200',n:200,bonus:40,price:14.99,tag:'Best value'}],
+ freeMsgs:3,freeDays:3,cost:{msgs:10,day:15,analysis:30},premiumCoins:50
+};
+const $$=p=>'$'+p.toFixed(2);
+const MONTHLY_EQ=CFG.annual.price/12, SAVE=Math.round((1-CFG.annual.price/(CFG.monthly.price*12))*100);
+function dateIn(n){const d=new Date();d.setDate(d.getDate()+n);return d.toLocaleDateString('en-US',d.getFullYear()!==new Date().getFullYear()?{month:'short',day:'numeric',year:'numeric'}:{month:'short',day:'numeric'});}
+function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+const RM=matchMedia('(prefers-reduced-motion: reduce)');
+
+/* ======================= icons ======================= */
+const ic=p=>'<svg class="i" viewBox="0 0 24 24" aria-hidden="true">'+p+'</svg>';
+const I={
+ back:ic('<path d="M15 5l-7 7 7 7"/>'),x:ic('<path d="M6 6l12 12M18 6L6 18"/>'),check:ic('<path d="M5 12l5 5 9-10"/>'),
+ lock:ic('<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>'),
+ chat:ic('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>'),
+ plan:ic('<rect x="4" y="5" width="16" height="16" rx="3"/><path d="M8 3v4M16 3v4M4 10h16"/>'),
+ scan:ic('<circle cx="11" cy="11" r="7"/><path d="M16 16l5 5"/>'),
+ home:ic('<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'),
+ list:ic('<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>'),
+ user:ic('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+ phone:ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>'),
+ heart:ic('<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>'),
+ bell:ic('<path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0"/>'),
+ send:ic('<path d="M12 19V5M6 11l6-6 6 6"/>'),chev:ic('<path d="M9 5l7 7-7 7"/>'),
+ shield:ic('<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>'),
+ clock:ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+ flame:ic('<path d="M12 3c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>'),
+ gift:ic('<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13M12 8c-2-4-7-4-6-1 1 2 6 1 6 1zM12 8c2-4 7-4 6-1-1 2-6 1-6 1z"/>'),
+ restore:ic('<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/>'),
+ pen:ic('<path d="M4 20l1-4L16 5l3 3L8 19z"/>'),
+ flash:ic('<path d="M8 3h8l-1 6H9zM9 9v11h6V9"/>'),
+ camera:ic('<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.5"/>'),
+ faceid:'<svg width="40" height="40" viewBox="0 0 64 64" fill="none" stroke="#007AFF" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8 20V12a4 4 0 0 1 4-4h8M44 8h8a4 4 0 0 1 4 4v8M56 44v8a4 4 0 0 1-4 4h-8M20 56h-8a4 4 0 0 1-4-4v-8M24 24v4M40 24v4M32 24v12h-3M25 44q7 5 14 0"/></svg>'
+};
+function coinSvg(sz){return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#F6C25B"/><circle cx="12" cy="12" r="7.6" fill="#FFE7A8" stroke="#E0A42F" stroke-width="1.2"/><path d="M12 16.5s-4-2.4-4-5.4a2.2 2.2 0 0 1 4-1.3 2.2 2.2 0 0 1 4 1.3c0 3-4 5.4-4 5.4z" fill="#D81B60"/></svg>';}
+
+/* ======================= Lumi + Mira ======================= */
+let uid=0;const INK='#3A0F22';
+function lumiDefs(id,light){return '<defs><linearGradient id="g'+id+'" x1="0" y1="0" x2="1" y2="1">'+(light?'<stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFD6E2"/>':'<stop offset="0" stop-color="#C2185B"/><stop offset=".6" stop-color="#E8457A"/><stop offset="1" stop-color="#F57FA2"/>')+'</linearGradient><radialGradient id="a'+id+'"><stop offset="0" stop-color="#E8336D" stop-opacity=".45"/><stop offset="1" stop-color="#E8336D" stop-opacity="0"/></radialGradient></defs>';}
+function eye(t,cx){const cy=90;if(t==='happy')return '<path d="M'+(cx-8)+' '+(cy+3)+'q8 -11 16 0" fill="none" stroke="'+INK+'" stroke-width="4.2" stroke-linecap="round"/>';if(t==='closed')return '<path d="M'+(cx-8)+' '+(cy-1)+'q8 8 16 0" fill="none" stroke="'+INK+'" stroke-width="4.2" stroke-linecap="round"/>';return '<g class="lb"><ellipse cx="'+cx+'" cy="'+cy+'" rx="7" ry="9" fill="'+INK+'"/><circle cx="'+(cx+2.6)+'" cy="'+(cy-3.2)+'" r="2.7" fill="#fff"/></g>';}
+function mouth(t){const s=' fill="none" stroke="'+INK+'" stroke-width="4" stroke-linecap="round"';return {smile:'<path d="M90 112q10 10 20 0"'+s+'/>',big:'<path d="M87 109q13 20 26 0z" fill="'+INK+'"/><ellipse cx="100" cy="118" rx="6" ry="3.4" fill="#FF8FA3"/>',flat:'<path d="M92 115h16"'+s+'/>',frown:'<path d="M90 119q10 -9 20 0"'+s+'/>',tiny:'<path d="M95 113q5 4 10 0"'+s+'/>'}[t];}
+const XT={
+ sprout:'<path d="M100 50q-3 -14 0 -24" fill="none" stroke="#34B98A" stroke-width="4.5" stroke-linecap="round"/><path d="M100 30q-16 -12 -24 2q14 10 24 -2z" fill="#34B98A"/><path d="M100 28q12 -16 26 -6q-10 12 -26 6z" fill="#0B7A55"/>',
+ sadbrow:'<path d="M64 76L84 70M136 76L116 70" stroke="'+INK+'" stroke-width="4" stroke-linecap="round"/>'
+};
+function lumi(c,size){const id=++uid,ex=c.x||[];
+ const R=c.wave?'M164 94q24 -12 18 -36':'M164 98q14 10 10 26';
+ const crack=c.broken?'<path d="M100 50l-11 18l15 11l-11 16l8 12" fill="none" stroke="#7A0E36" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>':'<path d="M100 50l-8 14l12 8l-8 12" fill="none" stroke="#FFE1CF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>';
+ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 200 200" aria-hidden="true">'+lumiDefs(id,c.light)+(c.glow?'<circle cx="100" cy="100" r="98" fill="url(#a'+id+')"/>':'')+
+ '<g fill="none" stroke="'+(c.light?'#FFD0DE':'#E0457A')+'" stroke-width="12" stroke-linecap="round"><path d="M36 98q-14 10 -10 26"/><path d="'+R+'"/></g>'+
+ '<path d="M100 174C40 132 22 98 22 70C22 44 42 28 64 28C80 28 92 36 100 50C108 36 120 28 136 28C158 28 178 44 178 70C178 98 160 132 100 174Z" fill="url(#g'+id+')"/><ellipse cx="64" cy="56" rx="22" ry="11" fill="#fff" opacity="'+(c.light?.7:.3)+'" transform="rotate(-30 64 56)"/>'+crack+
+ '<ellipse cx="57" cy="109" rx="10" ry="6" fill="#FF8FA3" opacity=".6"/><ellipse cx="143" cy="109" rx="10" ry="6" fill="#FF8FA3" opacity=".6"/>'+eye(c.e[0],76)+eye(c.e[1]||c.e[0],124)+mouth(c.m)+ex.map(k=>XT[k]).join('')+'</svg>';}
+/* Mira: a faceless orb, presence rather than a second character */
+function mira(sz){const id=++uid;return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="o'+id+'" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#FFE3EC"/><stop offset=".5" stop-color="#F06A95"/><stop offset="1" stop-color="#B3134F"/></radialGradient></defs><circle cx="100" cy="100" r="94" fill="url(#o'+id+')"/><circle cx="100" cy="100" r="92" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3"/><ellipse cx="72" cy="58" rx="30" ry="15" fill="#fff" opacity=".35" transform="rotate(-30 72 58)"/></svg>';}
+function appIcon(sz){return '<span class="appi" style="width:'+sz+'px;height:'+sz+'px;border-radius:'+Math.round(sz*.225)+'px">'+lumi({e:['happy'],m:'smile',light:1},Math.round(sz*.78))+'</span>';}
+
+/* ======================= state ======================= */
+const S0=()=>({i:0,hist:[],premium:false,trial:false,sub:null,cancelled:false,tday:1,coins:20,left:CFG.freeMsgs,sos:false,
+ pick:'annual',remind:true,variant:'A',exitShown:false,analysis:false,days:{},done:2,sent:0,drafts:2,reason:null,
+ chat:[['ai',"Hi Selin. It’s late. How’s tonight going?"],['me','I saw his story. He looked happy.'],['ai','That stings. A story is a highlight, not a whole life. What did you feel first?']],typing:false});
+let s=S0(),dir='fwd';
+const REPLY=['That makes sense. Missing someone isn’t a reason to go back. What would help most in the next ten minutes?','Let’s take three slow breaths first, then decide together.','You’re doing the hard part right now. That counts.'];let rc=0;
+
+/* ======================= building blocks ======================= */
+function bar(title,o){o=o||{};const lead=o.lead||(o.back||o.close?'<button class="gbtn gl" data-act="back" aria-label="'+(o.close?'Close':'Back')+'">'+(o.close?I.x:I.back)+'</button>':'<span class="nb-sp"></span>');
+ return '<header class="nb">'+lead+'<span class="nb-t'+(o.large?' inl':'')+'">'+title+'</span><span class="nb-r">'+(o.right||'')+'</span></header>';}
+function largeTitle(t,sub){return '<div class="lt"><h1>'+t+'</h1>'+(sub?'<p class="sub">'+sub+'</p>':'')+'</div>';}
+function row(o){const tag=o.tag||'button';return '<'+tag+' class="row-i'+(o.icon||o.ico?' has-ico':'')+(o.cls?' '+o.cls:'')+'" '+(o.attr||'')+'>'+
+ (o.icon?'<span class="ico-sq '+(o.tone||'')+'">'+o.icon+'</span>':'')+(o.lead||'')+
+ '<span class="grow"><span class="rt"'+(o.tc?' style="color:'+o.tc+'"':'')+'>'+o.t+'</span>'+(o.st?'<span class="rs"'+(o.sc?' style="color:'+o.sc+'"':'')+'>'+o.st+'</span>':'')+'</span>'+
+ (o.val!==undefined?'<span class="val"'+(o.vc?' style="color:'+o.vc+'"':'')+'>'+o.val+'</span>':'')+(o.trail||'')+(o.chev?'<span class="chev">'+I.chev+'</span>':'')+'</'+tag+'>';}
+function coinChip(){return '<button class="chip gl coin" data-to="Coins" aria-label="'+s.coins+' coins. Open coin shop">'+coinSvg(18)+'<span data-count="'+s.coins+'">'+s.coins+'</span></button>';}
+function stage(art,h,disc){return '<div class="stage" style="height:'+h+'px"><div class="disc" style="width:'+disc+'px;height:'+disc+'px"></div><div>'+art+'</div></div>';}
+function premiumState(){return s.premium?(s.trial?'Free trial · day '+s.tday+' of '+CFG.annual.trial:(s.sub==='monthly'?'Premium Monthly':'Premium Yearly'))+(s.cancelled?' · ends '+dateIn(periodLeft()):''):'Free plan';}
+function trialLeft(){return Math.max(0,CFG.annual.trial-s.tday+1);}
+function periodLeft(){return s.trial?trialLeft():s.sub==='monthly'?30:365;}
+const DAYS=['Mute, don’t stalk','Your non-negotiables','Three things you don’t miss','Delete the photos','The two-week letter','Your new Sunday','Rewrite the story','Meet your anxious side'];
+function fineTxt(a){return a?CFG.annual.trial+' days free, then '+$$(CFG.annual.price)+'/year. Cancel anytime in Settings.':$$(CFG.monthly.price)+'/month. Cancel anytime in Settings.';}
+function planRow(k,t,extra,ps,pr,per){const on=s.pick===k;return '<button class="plan'+(on?' on':'')+'" role="radio" aria-checked="'+on+'" data-act="pick" data-k="'+k+'"><span class="rad">'+I.check+'</span><span class="grow"><span class="pt">'+t+extra+'</span><span class="ps">'+ps+'</span></span><span class="pr">'+pr+'<small>'+per+'</small></span></button>';}
+function swEl(){return '<button class="sw'+(s.remind?' on':'')+'" data-act="remind" role="switch" aria-checked="'+s.remind+'" aria-label="Remind me before my trial ends"></button>';}
+
+/* ======================= screens ======================= */
+const SC=[
+/* ---------- ONBOARDING → PAYWALL ---------- */
+{n:'Plan ready',g:'Onboarding',pad:'dock',
+ why:'Value before price. The user sees a plan built from their own answers (breakup type, attachment style, goals) one tap before the paywall. A personal plan raises perceived value, and the paywall can then sell <i>their</i> plan, not a generic app.',
+ h:()=>stage(lumi({e:['happy'],m:'big',wave:1},170),196,176)+
+ '<div class="col ctr" style="gap:8px"><h1 class="display">Your plan is ready.</h1><p class="lead">Built from your answers. It starts small, tonight.</p></div>'+
+ '<div class="list">'+[['What happened',CFG.what],['Attachment style','Anxious'],['Focus','No contact, self-worth'],['First step','Tonight · 4 min']].map(r=>row({tag:'div',t:r[0],val:r[1]})).join('')+'</div>'+
+ '<p class="foot" style="text-align:center">Grounded in CBT and attachment research. Private by default.</p>',
+ c:()=>'<div class="dockbar"><button class="btn pri" data-to="Paywall">Continue</button></div>'},
+
+{n:'Paywall',g:'Onboarding',pad:'dock',modal:1,
+ why:'One job: start the trial. Yearly is preselected; the billed price ('+$$(CFG.annual.price)+'/year) is the most prominent number, with the monthly equivalent ('+$$(MONTHLY_EQ)+') as a quiet anchor (App Store 3.1.2). The timeline and the reminder switch remove the #1 trial fear: being charged by surprise. Close and Restore are always visible. Use the A/B switch to test Timeline vs Compare.',
+ nb:()=>'<header class="nb"><button class="gbtn gl" data-act="closePaywall" aria-label="Close">'+I.x+'</button><span class="nb-t"></span><span class="nb-r"><button class="nb-link" data-act="restore">Restore</button></span></header>',
+ h:()=>{const a=s.pick==='annual';
+  const head='<div class="col ctr" style="gap:8px"><h1 class="display">30 days to feel like you again.</h1><p class="lead">Your full plan, and Mira whenever it gets hard.</p></div>';
+  const strip='<div class="col" style="gap:8px"><div class="strip" aria-hidden="true">'+Array.from({length:30},(_,k)=>'<i class="'+(k<s.done?'d':k===s.done?'t':'')+'"></i>').join('')+'</div><p class="foot" style="text-align:center">You’re on Day '+Math.min(s.done+1,30)+'. Premium opens the rest.</p></div>';
+  const plans='<div class="plans" role="radiogroup" aria-label="Choose a plan"><span class="plan-hl" aria-hidden="true"></span>'+
+   planRow('annual','Yearly','<span class="save">Save '+SAVE+'%</span>',CFG.annual.trial+' days free · '+$$(MONTHLY_EQ)+'/month',$$(CFG.annual.price),'per year')+
+   planRow('monthly','Monthly','','No free trial',$$(CFG.monthly.price),'per month')+'</div>';
+  const stp=(icn,b,t,first,extra)=>'<div class="st'+(first?' first':'')+'"><span class="dot">'+icn+'</span><div class="grow"><b>'+b+'</b><span>'+t+'</span></div>'+(extra||'')+'</div>';
+  let mid;
+  if(s.variant==='A'){
+   const ben='<ul class="ben">'+[[I.chat,'Talk to Mira anytime','No nightly message limit'],[I.plan,'All 30 days of your plan','Free stops after Day '+CFG.freeDays],[I.scan,'Your full analysis','All three patterns, not just one']].map(b=>'<li>'+b[0]+'<span><b>'+b[1]+'</b><small>'+b[2]+'</small></span></li>').join('')+'</ul>';
+   const tl='<div class="tl-wrap'+(a?' open':'')+'"><div><div class="card tl">'+stp(I.lock,'Today','Full access. No charge.',1)+stp(I.bell,dateIn(CFG.annual.trial-2),'We’ll send you a reminder.',0,swEl())+stp(I.check,dateIn(CFG.annual.trial),'Your plan starts at '+$$(CFG.annual.price)+'/year. Cancel before then and you won’t be charged.')+'</div></div></div>';
+   mid=ben+plans+tl;
+  }else{
+   const R=[['Daily plan','Days 1–'+CFG.freeDays,'All 30'],['Talks with Mira',CFG.freeMsgs+' a night','Unlimited'],['SOS and helplines','✓','✓'],['Unsent drafts (Draft Jail)','1 a day','Unlimited'],['Relationship analysis','1 insight','Full'],['Bonus coins','—',CFG.premiumCoins+' / mo']];
+   const cmp='<div class="card"><div class="cmp"><div class="hd" style="justify-content:flex-start">What you get</div><div class="hd">Free</div><div class="p hd">Premium</div>'+R.map((r,k)=>'<div>'+r[0]+'</div><div class="c'+(r[1]==='—'?' no':'')+'">'+(r[1]==='✓'?I.check:r[1])+'</div><div class="p'+(k===R.length-1?' last':'')+'">'+(r[2]==='✓'?I.check:r[2])+'</div>').join('')+'</div></div>';
+   const rem='<div class="tl-wrap'+(a?' open':'')+'"><div><div class="list">'+row({tag:'div',t:'Remind me before my trial ends',trail:swEl()})+'</div></div></div>';
+   mid=cmp+plans+rem;
+  }
+  return head+strip+mid+'<p class="foot pw-priv">'+I.lock+'Your conversations stay private.</p>';},
+ c:()=>{const a=s.pick==='annual';return '<div class="dockbar"><button class="btn pri" data-act="buy" data-k="'+s.pick+'"><span class="swap">'+(a?'Start Free Trial':'Subscribe')+'</span></button><p class="fine swap">'+fineTxt(a)+'</p><div class="links"><button data-act="legal">Terms of Use</button><span aria-hidden="true">·</span><button data-act="legal">Privacy Policy</button></div></div>';}},
+
+{n:'Welcome',g:'Premium',pad:'dock',
+ why:'The moment after payment decides refunds and churn. Confirm calmly, show exactly what unlocked, and repeat the reminder date so the user feels safe. Then send them straight into a win (today’s step), not a menu.',
+ h:()=>'<div class="win">'+stage(lumi({e:['happy'],m:'big',wave:1},170),196,176)+'</div>'+
+ '<div class="col ctr" style="gap:8px"><h1 class="display">You’re all set, '+CFG.name+'.</h1><p class="lead">'+(s.trial?'Everything’s open. We’ll remind you on '+dateIn(CFG.annual.trial-2)+', two days before your trial ends.':'Everything’s open. Take it one day at a time.')+'</p></div>'+
+ '<div class="list welcome-list">'+['All 30 days','Unlimited Mira','Full relationship analysis','+'+CFG.premiumCoins+' coins added'].map(t=>row({tag:'div',cls:'has-ico',lead:'<span class="ok-g">'+I.check+'</span>',t:t})).join('')+'</div>',
+ c:()=>'<div class="dockbar"><button class="btn pri" data-tab="Plan">Start Day '+Math.min(s.done+1,30)+'</button><p class="fine">Manage anytime in Me › Subscription</p></div>'},
+
+/* ---------- FREE EXPERIENCE ---------- */
+{n:'Home',g:'Free experience',tab:'Home',
+ why:'Free users feel the product, not a wall. Premium appears as <b>status</b> (a quiet row), never as a pop-up. Every premium hint sits next to real value: messages left with Mira, the locked insights, the trial countdown. SOS is always one tap away and always free.',
+ nb:()=>bar('Today',{large:1,right:coinChip()}),
+ h:()=>{const hr=new Date().getHours(),g=hr<5?'Still up':hr<12?'Good morning':hr<18?'Good afternoon':'Good evening',open=s.premium||s.analysis,dn=Math.min(s.done+1,DAYS.length);
+  return largeTitle('Today',g+', '+CFG.name)+
+  '<button class="hero" data-tab="Plan" aria-label="No contact for 12 days. Open your plan"><span class="hero-k">'+I.flame+'No contact</span><span class="hero-n"><span class="num" style="font-size:88px">12</span><span class="hero-u">days</span></span><span class="hero-p"><i style="width:86%"></i></span><span class="hero-f">2 more days to two weeks</span></button>'+
+  '<div class="list">'+
+   row({icon:I.plan,t:DAYS[dn-1],st:'Day '+dn+' · 5 min',attr:'data-tab="Plan"',chev:1})+
+   row({icon:I.chat,tone:'neu',t:'Talk to Mira',st:s.premium?'Anytime, no limit':s.left+' free message'+(s.left===1?'':'s')+' left tonight',attr:'data-tab="Coach"',chev:1})+
+   row({icon:I.scan,tone:'neu',t:'Your analysis',st:open?'3 insights ready':'1 of 3 insights unlocked',attr:'data-to="Analysis"',chev:1})+
+  '</div>'+
+  '<div class="list">'+row({icon:I.heart,tone:'dg',t:'About to text them?',st:'Pause first. SOS is always free.',attr:'data-to="SOS"',chev:1})+'</div>'+
+  (s.trial?'<div class="list">'+row({icon:I.clock,t:'Free trial: '+trialLeft()+' days left',st:'See your progress',attr:'data-to="Trial status"',chev:1})+'</div>'
+   :!s.premium?'<div class="list">'+row({icon:I.lock,tone:'neu',t:'Day '+(CFG.freeDays+1)+' is part of Premium',val:'Try free',vc:'var(--accent-ink)',attr:'data-to="Paywall"',chev:1})+'</div>':'');}},
+
+{n:'Plan',g:'Free experience',tab:'Plan',
+ why:'Locked content is shown, not hidden: the user sees the title and the promise of each next day. Curiosity converts better than a blank wall. Two exits from a lock: Premium (best value) or unlock one day with coins (low-commitment first purchase).',
+ nb:()=>bar('Your 30 Days',{large:1,right:coinChip()}),
+ h:()=>{const rows=(a,b)=>DAYS.slice(a,b).map((t,j)=>{const d=a+j+1,done=d<=s.done,open=s.premium||d<=CFG.freeDays||s.days[d],today=open&&d===s.done+1,cls=done?'done':today?'today':open?'open':'lock',n=d-s.done-1;
+   const st='Day '+d+' · '+(done?'Done':today?'Today · 5 min':open?(s.days[d]&&!s.premium?'Unlocked with coins · opens in '+n+'d':'Opens in '+n+' day'+(n>1?'s':'')):'Premium');
+   const act=cls==='lock'?'data-act="lockDay" data-d="'+d+'"':today?'data-act="task" data-d="'+d+'"':'data-d="'+d+'"';
+   return row({tag:(cls==='lock'||today)?'button':'div',cls:'has-ico dayr '+cls,lead:'<span class="dn '+cls+'">'+(done?I.check:cls==='lock'?I.lock:d)+'</span>',t:t,st:st,attr:act,chev:today});}).join('');
+  return largeTitle('Your 30 Days','Day '+Math.min(s.done+1,30)+' of 30')+
+  '<div class="col" style="gap:8px"><span class="pbar"><i style="width:'+(s.done/30*100)+'%"></i></span><p class="foot">'+s.done+' of 30 days done</p></div>'+
+  '<section class="col"><h2 class="sec-h">This week</h2><div class="list">'+rows(0,7)+'</div></section>'+
+  '<section class="col"><h2 class="sec-h">Next week</h2><div class="list">'+rows(7,8)+'</div></section>';}},
+
+{n:'Coach',g:'Free experience',pad:'chat',tab:'Coach',
+ why:'The soft limit fires at the emotional peak (late night, mid-conversation), the moment the value is most felt. The meter shows the limit <i>before</i> it hits, so it never feels like a trap. Three honest options: Premium, coins, or wait. Messages started from SOS never count.',
+ nb:()=>'<header class="nb chat-nb"><span class="nb-sp"></span><span class="chat-id">'+mira(36)+'<span>Mira</span></span><span class="nb-r"></span></header>',
+ h:()=>{let prev=null;const msgs=s.chat.slice(-6).map(m=>{const c=prev===m[0]?' cont':'';prev=m[0];return '<div class="bub '+m[0]+c+'">'+esc(m[1])+'</div>';}).join('');
+  return '<div class="col" style="gap:10px;justify-content:flex-end;flex:1">'+msgs+(s.typing?'<div class="bub ai typing'+(prev==='ai'?' cont':'')+'" aria-label="Mira is typing"><i></i><i></i><i></i></div>':'')+'</div>';},
+ c:()=>{const free=!s.premium&&!s.sos;let dots='';for(let k=0;k<CFG.freeMsgs;k++)dots+='<b class="'+(k<s.left?'':'off')+'"></b>';
+  return '<div class="composer">'+(free?'<div class="meter gl"><i>'+dots+'</i>'+s.left+' free message'+(s.left===1?'':'s')+' left tonight<button data-to="Paywall">Get More</button></div>':s.sos?'<div class="meter gl sos">'+I.shield+'SOS mode · no limits</div>':'')+
+  '<div class="inp gl"><input id="msg" aria-label="Message Mira" placeholder="Message Mira" autocomplete="off"><button class="send" data-act="send" aria-label="Send">'+I.send+'</button></div></div>';}},
+
+{n:'SOS',g:'Free experience',pad:'plain',modal:1,
+ why:'Ethics line, and a trust builder: crisis help is <b>never</b> behind a paywall or a limit. Users who feel safe at their worst moment are the ones who later pay. It is also what App Review and the press will look at first.',
+ nb:()=>bar('',{close:1}),
+ h:()=>'<h1 class="display" style="text-align:center;font-size:44px;line-height:48px">Pause. Breathe.</h1>'+
+ '<div class="col ctr" style="gap:12px"><div class="stage" style="height:210px"><div class="disc" style="width:200px;height:200px"></div><div class="breath">'+lumi({e:['closed'],m:'smile'},165)+'</div></div><p class="cue" aria-hidden="true"><span>Breathe in</span><span>Breathe out</span></p></div>'+
+ '<p class="body" style="text-align:center;margin:0">You’ve gone 12 days without reaching out. Let’s get through the next ten minutes together.</p>'+
+ '<div class="col" style="gap:8px;margin-top:auto"><button class="btn pri" data-act="sosChat">Talk to Mira</button><button class="btn gl" data-act="draft">'+I.pen+'Write It in Draft Jail</button><button class="btn txt" data-act="crisis" style="color:var(--danger)">I Need Urgent Help</button><p class="foot" style="text-align:center">SOS is always free.</p></div>'},
+
+{n:'Analysis',g:'Free experience',pad:'dock',
+ why:'Freemium “aha” moment: one real insight is free and specific, so the user trusts the rest. The other two are visibly there but blurred. A coin unlock (30) gives a cheap first purchase; Premium is framed as the better deal.',
+ nb:()=>bar('Analysis',{back:1}),
+ h:()=>{const open=s.premium||s.analysis;
+  const P=['You started 7 of 10 conversations.','Apologies came mostly from you.','Plans were often cancelled last-minute.'];
+  const pr=(t,k)=>'<div class="pat"><span class="pn">'+k+'</span><span>'+t+'</span></div>';
+  return '<div class="card col" style="gap:12px"><b class="hl">Who reached out first</b><div class="split"><i style="width:68%"></i></div><p class="foot">You 68% · Them 32%</p></div>'+
+  '<div class="card col" style="gap:12px"><b class="hl">Patterns</b>'+pr(P[0],1)+
+  (open?P.slice(1).map((t,k)=>pr(t,k+2)).join('')+'<p class="foot"><b style="color:var(--success)">Worked:</b> shared humour, honesty early on</p><p class="foot" style="margin-top:-8px"><b style="color:var(--ink)">Hard:</b> slow replies, avoided hard talks</p>'
+  :'<div class="lockwrap"><div class="blur col" style="gap:12px">'+P.slice(1).map((t,k)=>pr(t,k+2)).join('')+'</div><div class="ov">'+I.lock+'2 more patterns</div></div>')+'</div>'+
+  '<div class="mira-note">'+mira(20)+'<p class="foot">'+(open?'You gave a lot. Next time, look for someone who meets you halfway.':'Two more patterns are ready when you are.')+'</p></div>';},
+ c:()=>(s.premium||s.analysis)?'<div class="dockbar"><button class="btn pri" data-tab="Coach">Talk It Through with Mira</button></div>':
+ '<div class="dockbar"><button class="btn pri" data-to="Paywall">Try Premium Free</button><button class="btn gl" data-act="spendAnalysis">Unlock for <span class="coinic">'+coinSvg(18)+'</span>'+CFG.cost.analysis+' Coins</button></div>'},
+
+{n:'Coins',g:'Free experience',tab:'*',
+ why:'Coins capture people who will never subscribe, at impulse moments (late-night extra talk, one locked day). The large pack is marked Best value once, quietly. Premium is cross-sold with monthly bonus coins, so the two models help each other.',
+ nb:()=>bar('Coins',{back:1}),
+ h:()=>'<div class="bal">'+coinSvg(32)+'<span class="num" data-count="'+s.coins+'" style="font-size:72px">'+s.coins+'</span><span class="foot">coins</span></div>'+
+ '<section class="col"><h2 class="sec-h">Get coins</h2><div class="list">'+CFG.packs.map((p,k)=>{const bv=p.tag==='Best value';return row({cls:'pack has-ico',lead:'<span class="ico-c">'+coinSvg(30)+'</span>',t:p.n+' coins',st:(bv?'Best value · ':'')+(p.bonus?'+'+p.bonus+' bonus':'One-time purchase'),sc:bv?'var(--accent-ink)':p.bonus?'var(--success)':'',trail:'<span class="get">'+$$(p.price)+'</span>',attr:'data-act="buy" data-k="coins:'+k+'" aria-label="'+p.n+' coins'+(p.bonus?' plus '+p.bonus+' bonus':'')+', '+$$(p.price)+'"'});}).join('')+'</div></section>'+
+ '<section class="col"><h2 class="sec-h">What you can unlock</h2><div class="list">'+[['chat','20 more messages with Mira',CFG.cost.msgs],['plan','Unlock one plan day',CFG.cost.day],['scan','Full relationship analysis',CFG.cost.analysis]].map(r=>row({tag:'div',icon:I[r[0]],tone:'neu',t:r[1],val:'<span class="cval">'+coinSvg(16)+r[2]+'</span>'})).join('')+'</div></section>'+
+ (s.premium?'':'<div class="list">'+row({icon:I.gift,t:'Premium includes '+CFG.premiumCoins+' coins a month',attr:'data-to="Paywall"',chev:1})+'</div>')},
+
+/* ---------- TRIAL & PREMIUM ---------- */
+{n:'Trial reminder',g:'Premium',pad:'plain',
+ why:'The promised reminder, delivered 2 days before billing, written with the user’s own progress. Honest reminders cut refunds and chargebacks, and a value-recap reminder converts better than silence. (Schedule it locally at purchase + server push as backup.)',
+ h:()=>{if(s.trial)s.tday=Math.max(s.tday,5);const d=new Date();
+  return '<div class="lock-scr"></div><div class="ls"><div class="ls-date">'+d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+'</div><div class="ls-time">'+d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')+'</div></div>'+
+  '<button class="notif gl" data-to="Trial status">'+appIcon(38)+'<span class="grow"><span class="n-top"><b>Your trial ends in 2 days</b><time>now</time></span><span class="n-body">'+(s.sent+11)+' talks with Mira and '+s.drafts+' unsent texts so far. If it’s not for you, cancel anytime in Settings.</span></span></button>'+
+  '<div class="ls-acts" aria-hidden="true"><span>'+I.flash+'</span><span>'+I.camera+'</span></div>';}},
+
+{n:'Trial status',g:'Premium',pad:'dock',
+ why:'A value recap built from real usage (talks, drafts not sent, days done). People keep paying for progress they can see. The cancel path is right here and honest, which is required, and it builds the trust that keeps them.',
+ nb:()=>bar('Your Trial',{back:1}),
+ h:()=>{const L=trialLeft(),r=42,c=2*Math.PI*r,p=(CFG.annual.trial-L)/CFG.annual.trial;
+  return '<div class="card row" style="gap:16px"><div class="ring-w"><svg width="100" height="100" aria-hidden="true"><circle cx="50" cy="50" r="'+r+'" fill="none" stroke="rgba(58,15,34,.06)" stroke-width="8"/><circle cx="50" cy="50" r="'+r+'" fill="none" stroke="#D81B60" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+c*p+' '+c+'" transform="rotate(-90 50 50)"/></svg><span class="col ctr" style="gap:0"><b class="num" style="font-size:40px">'+L+'</b><span class="cap">days left</span></span></div><div class="col" style="gap:4px"><b class="hl">Free until '+dateIn(L)+'</b><p class="sub">Then '+$$(CFG.annual.price)+'/year. Cancel anytime before.</p></div></div>'+
+  '<section class="col"><h2 class="sec-h">So far</h2><div class="card stats">'+[[s.sent+11,'Talks with Mira'],[s.drafts,'Texts not sent'],[s.done,'Days done']].map(x=>'<div><b>'+x[0]+'</b><span class="foot">'+x[1]+'</span></div>').join('')+'</div></section>'+
+  '<div class="card col" style="gap:4px"><b class="hl">Next up: Rebuild</b><p class="sub">Days 8–30 rebuild self-worth and routines. This is where most people feel the shift.</p></div>';},
+ c:()=>'<div class="dockbar"><button class="btn pri" data-tab="Home">Back to Today</button><button class="btn txt" data-to="Subscription">Manage Subscription</button></div>'},
+
+{n:'Subscription',g:'Premium',tab:'Me',
+ why:'“Me” doubles as the subscription hub. Free users see a calm upgrade card; subscribers see status, renewal date and an easy cancel. Cancel opens a 1-question survey that answers each reason (price → promotional offer, feeling better → celebrate) and never blocks the exit.',
+ nb:()=>bar('Me',{large:1}),
+ h:()=>largeTitle('Me')+
+ '<div class="me-h"><span class="avatar" aria-hidden="true">'+CFG.name[0]+'</span><div class="grow"><b class="t3">'+CFG.name+'</b><p class="foot">Day 12 · '+premiumState()+'</p></div></div>'+
+ (s.premium?'<section class="col"><h2 class="sec-h">Subscription</h2><div class="list">'+
+   row({tag:'div',t:'Plan',val:s.trial?'Yearly · Free trial':s.sub==='monthly'?'Monthly':'Yearly'})+
+   row({tag:'div',t:s.cancelled?'Ends':s.trial?'Trial ends':'Renews',val:dateIn(periodLeft())+(s.cancelled||s.trial?'':' · '+(s.sub==='monthly'?$$(CFG.monthly.price):$$(CFG.annual.price)))})+
+   (s.sub==='monthly'?row({t:'Switch to Yearly',tc:'var(--accent-ink)',val:'Save '+SAVE+'%',vc:'var(--success)',attr:'data-act="buy" data-k="annual"'}):'')+
+   row({t:'Manage Subscription',attr:'data-act="manage"',chev:1})+
+   (!s.cancelled?row({t:'Cancel Subscription',tc:'var(--danger)',attr:'data-act="cancel"'}):'')+
+  '</div>'+(s.cancelled?'<p class="foot sec-f">Cancelled. Premium stays on until '+dateIn(periodLeft())+'.</p>':'')+'</section>'
+ :'<div class="card col" style="gap:8px"><b class="t3">Try Premium free for '+CFG.annual.trial+' days</b><p class="sub">All 30 days, unlimited Mira, full analysis.</p><button class="btn pri sm" data-to="Paywall" style="align-self:flex-start;margin-top:4px">Try Free</button></div>')+
+ '<section class="col"><h2 class="sec-h">Account</h2><div class="list">'+
+  row({cls:'has-ico',lead:'<span class="ico-c">'+coinSvg(28)+'</span>',t:'Coins',val:s.coins,attr:'data-to="Coins"',chev:1})+
+  row({icon:I.restore,tone:'neu',t:'Restore Purchases',attr:'data-act="restore"'})+
+  (s.trial?row({icon:I.clock,t:'Your Trial Progress',attr:'data-to="Trial status"',chev:1}):'')+
+ '</div></section>'},
+
+/* ---------- RETENTION ---------- */
+{n:'Win-back',g:'Retention',pad:'dock',
+ why:'Lapsed users already know the value. Lead with what they keep (streak, journal, plan are saved), not with loss. The offer is an App Store promotional offer for past subscribers, shown in-app and by push 7–14 days after expiry. One clear CTA, one clear “no”.',
+ h:()=>stage(lumi({e:['open'],m:'smile',x:['sprout']},160),186,170)+
+ '<div class="col ctr" style="gap:8px"><h1 class="display">Lumi kept your place.</h1><p class="lead">Your 21-day streak, 14 journal entries and your plan are all still here.</p></div>'+
+ '<div class="card col" style="gap:2px"><p class="foot" style="color:var(--accent-ink);font-weight:600">Returning member offer</p><b class="price-xl">'+$$(CFG.winback.price)+'</b><p class="sub">for '+CFG.winback.months+' months, then '+$$(CFG.monthly.price)+'/month</p></div>',
+ c:()=>'<div class="dockbar"><button class="btn pri" data-act="buy" data-k="winback">Continue My Plan</button><p class="fine">'+$$(CFG.winback.price)+' for '+CFG.winback.months+' months, then '+$$(CFG.monthly.price)+'/month. Cancel anytime.</p><button class="btn txt" data-tab="Home" style="margin-bottom:-12px">Stay on Free</button></div>'}
+];
+const idx=n=>Math.max(0,SC.findIndex(x=>x.n===n));
+
+/* ======================= chrome: status bar, tab bar, toast, overlay ======================= */
+const phone=document.getElementById('phone'),view=document.getElementById('view');
+phone.insertAdjacentHTML('beforeend','<div class="sbar" aria-hidden="true"><b id="clk">9:41</b><span><svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1.5 4.2a10 10 0 0 1 14 0M4 6.9a6.3 6.3 0 0 1 9 0"/><circle cx="8.5" cy="10" r="1.1" fill="currentColor" stroke="none"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="22" height="12" rx="3.8" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="16" height="9" rx="2.3" fill="currentColor"/><rect x="24" y="4.2" width="2" height="4.6" rx="1" fill="currentColor" opacity=".5"/></svg></span></div><div class="hind" aria-hidden="true"></div><div class="toast" id="toast" role="status" aria-live="polite"></div><div id="ov"></div>');
+const TABS=[['Home','home','Home'],['Plan','list','Plan'],['Coach','chat','Coach'],['Me','user','Subscription']];
+view.insertAdjacentHTML('beforeend','<nav class="tabbar gl" id="tabbar" aria-label="Main"><span class="tcap" aria-hidden="true"></span>'+
+ TABS.map(t=>'<button data-tab="'+t[2]+'" aria-current="false">'+I[t[1]]+'<span>'+t[0]+'</span></button>').join('')+
+ '</nav><button class="sosb gl" id="sosb" data-to="SOS" aria-label="SOS, always free">'+I.heart+'<span>SOS</span></button>');
+let curTab='Home',tabIdx=-1;
+function syncTabs(a){const tb=document.getElementById('tabbar'),sb=document.getElementById('sosb'),i=TABS.findIndex(t=>t[0]===a);
+ tb.classList.toggle('hidden',i<0);sb.classList.toggle('hidden',i<0);if(i<0)return;
+ if(tabIdx>=0&&tabIdx!==i){const c=tb.querySelector('.tcap');c.classList.remove('moving');void c.offsetWidth;c.classList.add('moving');haptic();}
+ tabIdx=i;tb.style.setProperty('--i',i);
+ tb.querySelectorAll('button').forEach((b,k)=>{b.classList.toggle('on',k===i);b.setAttribute('aria-current',k===i?'page':'false');});}
+
+/* haptics: toggling a native switch input fires a haptic in iOS 18+ Safari */
+const hapEl=(()=>{const l=document.createElement('label');l.setAttribute('aria-hidden','true');l.style.cssText='position:fixed;left:0;top:0;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden';
+ l.innerHTML='<input type="checkbox" switch tabindex="-1">';document.body.appendChild(l);return l;})();
+function haptic(n){n=n||1;for(let k=0;k<n;k++)setTimeout(()=>{try{hapEl.click();}catch(e){}},k*90);try{if(navigator.vibrate&&navigator.userActivation&&navigator.userActivation.hasBeenActive)navigator.vibrate(n>1?[10,60,10]:8);}catch(e){}}
+
+let toastT;
+function toast(t){const el=document.getElementById('toast');el.innerHTML=I.check+esc(t);el.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2300);}
+let ovTok=0;
+function openOv(html,o){o=o||{};ovTok++;const ov=document.getElementById('ov');ov.classList.remove('closing');
+ ov.innerHTML='<div id="ovbg"></div>'+html;ov.classList.add('open');phone.classList.toggle('presenting',!o.noScale);
+ const f=ov.querySelector('button');if(f)f.focus({preventScroll:true});}
+function closeOv(instant){const ov=document.getElementById('ov');const h=phone.querySelector('.sidehint');if(h)h.remove();if(!ov.classList.contains('open'))return;const t=++ovTok;
+ phone.classList.remove('presenting');
+ if(instant===true||RM.matches){ov.classList.remove('open','closing');ov.innerHTML='';return;}
+ ov.classList.add('closing');setTimeout(()=>{if(t!==ovTok)return;ov.classList.remove('open','closing');ov.innerHTML='';},300);}
+function sheet(inner,label){const ex=document.querySelector('#ov.open:not(.closing) .sheet[aria-label="'+esc(label||'Sheet')+'"]');
+ if(ex){ex.innerHTML='<span class="grab"></span>'+inner;return;}
+ openOv('<div class="sheet" role="dialog" aria-modal="true" aria-label="'+esc(label||'Sheet')+'"><span class="grab"></span>'+inner+'</div>');}
+
+function exitOffer(){sheet('<div class="col ctr" style="gap:8px;padding-top:8px"><h2 class="display" style="font-size:34px;line-height:40px">Your first year, half price.</h2><p class="lead">'+$$(CFG.offer.price)+' for your first year, then '+$$(CFG.annual.price)+'/year. Cancel anytime.</p></div>'+
+ '<button class="btn pri" data-act="buy" data-k="offer">Try a Year for '+$$(CFG.offer.price)+'</button><button class="btn txt" data-act="goFree">Not Now</button>','Special offer');}
+function limitSheet(){const can=s.coins>=CFG.cost.msgs;
+ sheet('<div class="row" style="gap:12px">'+mira(44)+'<div class="col" style="gap:2px"><h2 class="t2">Mira’s still here.</h2><p class="sub">You’ve used tonight’s '+CFG.freeMsgs+' free messages.</p></div></div>'+
+ '<div class="opt"><button class="btn pri" data-act="sheetPaywall">Keep Talking with Premium</button><p class="foot" style="text-align:center">Includes a '+CFG.annual.trial+'-day free trial.</p></div>'+
+ '<button class="btn gl" data-act="spendMsgs">'+(can?'20 More Messages for '+CFG.cost.msgs+' Coins':'Get Coins')+'</button>'+
+ '<button class="btn txt" data-act="closeOv" style="margin-top:-8px">Wait Until 9 AM</button>'+
+ '<button class="link" data-act="sheetSOS" style="margin-top:-12px">Struggling right now? SOS is always free.</button>','Message limit');}
+function lockDaySheet(d){const can=s.coins>=CFG.cost.day;
+ sheet('<div class="col" style="gap:6px"><p class="foot">Day '+d+' · 5 min · Self-worth</p>'+(d===4?'<h2 class="t2">Let go of the photos, without losing the memories.</h2>':'<h2 class="t2">Day '+d+': '+(DAYS[d-1]||'Rebuild')+'</h2>')+'<p class="sub">Free covers Days 1–'+CFG.freeDays+'. Premium opens all 30, plus the Rebuild stage.</p></div>'+
+ '<div class="opt"><button class="btn pri" data-act="sheetPaywall">Unlock All 30 Days</button><p class="foot" style="text-align:center">'+CFG.annual.trial+' days free</p></div>'+
+ '<button class="btn gl" data-act="spendDay" data-d="'+d+'">'+(can?'Unlock Day '+d+' for '+CFG.cost.day+' Coins':'Get Coins to Unlock Day '+d)+'</button>','Locked day');}
+function cancelSheet(){const R=[['price','It’s too expensive'],['better','I’m feeling better'],['unused','I’m not using it'],['other','Something else']];
+ const A={price:'<div class="card col" style="gap:8px"><b class="hl">Stay for '+$$(CFG.offer.price)+' for a year</b><p class="sub">Half price, same everything. Applied as an App Store offer.</p><button class="btn pri sm" data-act="buy" data-k="offer" style="width:100%">Keep Premium for Less</button></div>',
+  better:'<div class="card"><p class="sub" style="color:var(--ink)"><b>That’s the whole point.</b> Your streak, journal and SOS stay free. Come back anytime.</p></div>',
+  unused:'<div class="card col" style="gap:8px"><b class="hl">Want a short check-in each night?</b><p class="sub">One message from Mira at 10 PM.</p><button class="btn gl sm" data-act="checkin" style="width:100%">Turn On Check-ins</button></div>',
+  other:'<p class="sub" style="padding:0 4px">Thank you for telling us. It helps us make MyEx better.</p>'};
+ sheet('<div class="col" style="gap:2px"><h2 class="t2">Mind sharing why?</h2><p class="sub">It helps us improve MyEx.</p></div><div class="list" role="radiogroup" aria-label="Reason">'+R.map(r=>row({cls:s.reason===r[0]?'on':'',t:r[1],trail:'<span class="chk">'+I.check+'</span>',attr:'data-act="reason" data-r="'+r[0]+'" role="radio" aria-checked="'+(s.reason===r[0])+'"'})).join('')+'</div>'+(s.reason?A[s.reason]:'')+
+ '<button class="btn txt" data-act="confirmCancel" style="color:var(--danger)">Continue to Cancel</button>','Cancel subscription');}
+function crisisSheet(){sheet('<div class="col" style="gap:6px"><h2 class="t2">You don’t have to handle this alone.</h2><p class="sub" style="color:var(--ink)">If you might hurt yourself, please reach a real person now.</p></div><button class="btn pri" data-act="call" style="background:var(--danger)">'+I.phone+'Call Emergency Services</button><button class="btn gl" data-act="call">Call a Helpline</button><button class="btn txt" data-act="closeOv">Cancel</button>','Crisis support');}
+
+/* StoreKit 2 purchase sheet (simulated, system look) */
+function product(k){
+ if(k.indexOf('coins:')===0){const p=CFG.packs[+k.split(':')[1]];return {t:p.n+(p.bonus?' + '+p.bonus:'')+' Coins',kind:'In-App Purchase',pr:$$(p.price),sub:'One-time purchase'};}
+ return {annual:{t:'MyEx Premium',kind:'Subscription',pr:CFG.annual.trial+'-day free trial',sub:'Starting '+dateIn(CFG.annual.trial)+': '+$$(CFG.annual.price)+'/year',fine:'Plan automatically renews for '+$$(CFG.annual.price)+'/year until canceled.'},
+  monthly:{t:'MyEx Premium',kind:'Subscription',pr:$$(CFG.monthly.price)+'/month',sub:'Starting today',fine:'Plan automatically renews for '+$$(CFG.monthly.price)+'/month until canceled.'},
+  offer:{t:'MyEx Premium',kind:'Subscription',pr:$$(CFG.offer.price)+' for 1 year',sub:'Then '+$$(CFG.annual.price)+'/year',fine:'Introductory offer. Plan renews for '+$$(CFG.annual.price)+'/year until canceled.'},
+  winback:{t:'MyEx Premium',kind:'Subscription',pr:$$(CFG.winback.price)+' for '+CFG.winback.months+' months',sub:'Then '+$$(CFG.monthly.price)+'/month',fine:'Promotional offer. Plan renews for '+$$(CFG.monthly.price)+'/month until canceled.'}}[k];}
+function store(k){const p=product(k);
+ openOv('<div class="sk" role="dialog" aria-modal="true" aria-label="App Store purchase">'+
+  '<div class="sk-top">'+appIcon(60)+'<div class="grow"><b class="sk-t">'+esc(p.t)+'</b><span class="sk-m">MyEx: Breakup Recovery</span><span class="sk-m">'+esc(p.kind)+'</span></div><button class="sk-x" data-act="closeOv" aria-label="Cancel">'+I.x+'</button></div>'+
+  '<div class="sk-box"><b class="sk-big">'+esc(p.pr)+'</b><span class="sk-m">'+esc(p.sub)+'</span>'+(p.fine?'<span class="sk-fine">'+esc(p.fine)+'</span>':'')+'</div>'+
+  '<div class="sk-box sk-acct"><span>Account</span><span>s•••••@icloud.com</span></div>'+
+  '<button class="sk-cta" id="skc" data-act="confirmBuy" data-k="'+k+'">'+I.faceid+'<span>Confirm with Side Button</span></button></div>',{noScale:true});
+ phone.insertAdjacentHTML('beforeend','<div class="sidehint" aria-hidden="true"><span>Double Click<br>to Pay</span><i></i></div>');}
+function confirmBuy(k){const c=document.getElementById('skc');if(!c||c.dataset.busy)return;c.dataset.busy='1';c.removeAttribute('data-act');const h=phone.querySelector('.sidehint');if(h)h.remove();
+ c.innerHTML='<div class="spin" role="img" aria-label="Processing"></div>';
+ setTimeout(()=>{if(c.isConnected){c.innerHTML='<div class="okc">'+I.check+'</div><b class="sk-done">Done</b>';haptic(2);}},900);
+ setTimeout(()=>{closeOv();apply(k);},1700);}
+function apply(k){
+ if(k.indexOf('coins:')===0){const p=CFG.packs[+k.split(':')[1]];const was=s.coins;s.coins+=p.n+p.bonus;render(false,was);toast('+'+(p.n+p.bonus)+' coins added');return;}
+ s.premium=true;s.cancelled=false;s.reason=null;s.trial=(k==='annual'&&!s.hadTrial);if(s.trial)s.hadTrial=true;s.tday=1;s.sub=k==='monthly'?'monthly':(k==='winback'?'monthly':'annual');s.coins+=CFG.premiumCoins;
+ go('Welcome');}
+
+/* ======================= actions ======================= */
+let rollFrom;
+function spend(n,ok){if(s.coins>=n){rollFrom=s.coins;s.coins-=n;closeOv();ok();}else{closeOv();toast('You need a few more coins');go('Coins');}}
+function reply(v){s.chat.push(['me',v]);s.sent++;if(!s.premium&&!s.sos)s.left=Math.max(0,s.left-1);s.typing=true;render(false);
+ setTimeout(()=>{s.typing=false;s.chat.push(['ai',REPLY[rc++%REPLY.length]]);if(SC[s.i].n==='Coach')render(false);},1400);}
+function placeHl(pg,instant){const on=pg.querySelector('.plan.on'),hl=pg.querySelector('.plan-hl');if(!on||!hl)return;
+ if(instant)hl.classList.add('no-t');hl.style.setProperty('--y',on.offsetTop+'px');hl.style.setProperty('--h',on.offsetHeight+'px');
+ if(instant)requestAnimationFrame(()=>requestAnimationFrame(()=>hl.classList.remove('no-t')));}
+function swapText(el,t){if(!el||el.textContent===t)return;el.classList.add('out');setTimeout(()=>{el.textContent=t;el.classList.remove('out');},120);}
+const ACT={
+ back:()=>back(),closeOv:()=>closeOv(),
+ closePaywall:()=>{if(!s.exitShown&&!s.premium){s.exitShown=true;exitOffer();}else go('Home',{tab:1});},
+ goFree:()=>{closeOv();go('Home',{tab:1});},
+ restore:()=>toast(s.premium?'Purchases restored':'No purchases to restore'),
+ legal:()=>toast('Opens in Safari'),
+ manage:()=>toast('Opens Settings › Subscriptions'),
+ remind:b=>{s.remind=!s.remind;b.classList.toggle('on',s.remind);b.setAttribute('aria-checked',s.remind);haptic();},
+ pick:b=>{const k=b.dataset.k;if(s.pick===k)return;s.pick=k;const pg=b.closest('.page'),a=k==='annual';
+  pg.querySelectorAll('.plan').forEach(p=>{const on=p.dataset.k===k;p.classList.toggle('on',on);p.setAttribute('aria-checked',on);});
+  placeHl(pg);const tw=pg.querySelector('.tl-wrap');if(tw)tw.classList.toggle('open',a);
+  const cta=pg.querySelector('.dockbar [data-act="buy"]');if(cta){cta.dataset.k=k;swapText(cta.querySelector('.swap'),a?'Start Free Trial':'Subscribe');}
+  swapText(pg.querySelector('.dockbar .fine'),fineTxt(a));haptic();},
+ buy:b=>{closeOv();store(b.dataset.k);},
+ confirmBuy:b=>confirmBuy(b.dataset.k),
+ send:()=>{const el=document.getElementById('msg'),v=el&&el.value.trim();if(!v)return;if(!s.premium&&!s.sos&&s.left<=0){limitSheet();return;}el.value='';reply(v);},
+ sheetPaywall:()=>{closeOv();go('Paywall');},
+ sheetSOS:()=>{closeOv();go('SOS');},
+ spendMsgs:()=>spend(CFG.cost.msgs,()=>{s.left+=20;render(false);toast('20 messages added');}),
+ spendDay:b=>{const d=+b.dataset.d;spend(CFG.cost.day,()=>{s.days[d]=1;render(false);toast('Day '+d+' unlocked');});},
+ spendAnalysis:()=>spend(CFG.cost.analysis,()=>{s.analysis=true;render(false);toast('Analysis unlocked');}),
+ lockDay:b=>lockDaySheet(+b.dataset.d),
+ task:()=>{s.done=Math.min(30,s.done+1);render(false);toast('Day '+s.done+' complete');haptic();},
+ sosChat:()=>{s.sos=true;go('Coach',{tab:1});},
+ draft:()=>{s.drafts++;toast('Saved. It stays unsent for 24 hours.');},
+ crisis:()=>crisisSheet(),call:()=>toast('Prototype: opens the phone dialer'),
+ cancel:()=>{s.reason=null;cancelSheet();},
+ reason:b=>{s.reason=b.dataset.r;cancelSheet();haptic();const c=document.querySelector('#ov [data-r="'+s.reason+'"]');if(c)c.focus({preventScroll:true});},
+ checkin:()=>{closeOv();toast('Nightly check-ins on');},
+ confirmCancel:()=>{closeOv();s.cancelled=true;render(false);toast('Opens Settings › Subscriptions');}
+};
+
+/* ======================= navigation & render ======================= */
+function go(n,o){o=o||{};const k=idx(n);if(o.tab){s.hist=[];dir=SC[s.i].modal&&!SC[k].modal?'down':'tab';}else{s.hist.push(s.i);dir=SC[k].modal?'up':'fwd';}if(n!=='Coach')s.sos=false;s.i=k;render(true);}
+function back(){dir=SC[s.i].modal?'down':'bck';s.i=s.hist.length?s.hist.pop():idx('Home');s.sos=false;render(true);}
+const steps=document.getElementById('steps');
+(function(){let g='',h='';SC.forEach((x,k)=>{if(x.g!==g){g=x.g;h+='<li class="g">'+g+'</li>';}h+='<li><button data-go="'+k+'"><i>'+String(k+1).padStart(2,'0')+'</i>'+x.n+'</button></li>';});steps.innerHTML=h;})();
+function curPage(){return view.querySelector('.page:not(.leaving)');}
+function wireScroll(pg){const sc=pg.querySelector('.scr');if(!sc)return;const f=()=>pg.classList.toggle('scrolled',sc.scrollTop>36);sc.addEventListener('scroll',f,{passive:true});f();}
+function render(anim,fromCoins){const sc=SC[s.i],old=curPage(),tb=document.getElementById('tabbar'),m0=old&&old.querySelector('#msg'),keep=!anim&&m0?{v:m0.value,f:document.activeElement===m0}:null;
+ const top=!anim&&old&&old.dataset.n===sc.n?old.querySelector('.scr').scrollTop:0;
+ const pg=document.createElement('div');pg.className='page';pg.dataset.n=sc.n;
+ pg.innerHTML=(sc.nb?sc.nb():'')+'<div class="scr '+(sc.pad||'')+(sc.nb?' has-nb':'')+'">'+sc.h()+'</div>'+(sc.c?sc.c():'');
+ view.querySelectorAll('.page.leaving').forEach(p=>p.remove());
+ const d=anim&&old?(RM.matches?'fade':dir):'';
+ if(d){old.classList.add('leaving','out-'+d);old.inert=true;old.querySelectorAll('[id]').forEach(e=>e.removeAttribute('id'));
+  pg.classList.add('in-'+d);view.insertBefore(pg,tb);
+  const kill=()=>{if(old.isConnected)old.remove();};old.addEventListener('animationend',e=>{if(e.target===old)kill();});setTimeout(kill,700);
+  pg.addEventListener('animationend',e=>{if(e.target===pg)pg.classList.remove('in-'+d);});
+ }else{if(old)old.remove();view.insertBefore(pg,tb);pg.querySelector('.scr').scrollTop=top;}
+ wireScroll(pg);
+ if(sc.tab!=='*')curTab=sc.tab||null;syncTabs(curTab);
+ phone.classList.toggle('dark-sb',sc.n==='Trial reminder');
+ [].forEach.call(steps.querySelectorAll('button'),b=>b.classList.toggle('on',+b.dataset.go===s.i));
+ document.getElementById('why').innerHTML='<b>Why it converts</b>'+sc.why;
+ const mode=!s.premium?'free':s.trial?'trial':'annual';
+ document.querySelectorAll('#segMode button').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+ document.querySelectorAll('#segVar button').forEach(b=>b.classList.toggle('on',b.dataset.var===s.variant));
+ if(sc.n==='Coach'){const sc2=pg.querySelector('.scr');sc2.scrollTop=sc2.scrollHeight;const m1=pg.querySelector('#msg');if(keep&&m1){m1.value=keep.v;m1.closest('.inp').classList.toggle('has-text',!!keep.v.trim());if(keep.f)m1.focus({preventScroll:true});}}
+ if(sc.n==='Paywall')placeHl(pg,true);
+ const from=fromCoins!==undefined?fromCoins:rollFrom;rollFrom=undefined;countUp(pg,from);tick();dir='fwd';}
+/* digit roll for coin balances, only when the value changes */
+function roll(el,from,to){if(RM.matches||from===to){el.textContent=to;return;}const t=String(to),f=String(from).padStart(t.length,'0').slice(-t.length);
+ el.setAttribute('aria-label',t);el.innerHTML=[...t].map((dg,i)=>'<span class="dgt" aria-hidden="true"><span class="dgts" style="--d:'+f[i]+';--k:'+(t.length-1-i)+'">'+'0123456789'.split('').map(n=>'<span>'+n+'</span>').join('')+'</span></span>').join('');
+ requestAnimationFrame(()=>requestAnimationFrame(()=>el.querySelectorAll('.dgts').forEach((x,i)=>x.style.setProperty('--d',t[i]))));
+ setTimeout(()=>{if(el.isConnected){el.textContent=t;el.removeAttribute('aria-label');}},850);}
+function countUp(pg,from){if(from===undefined)return;pg.querySelectorAll('[data-count]').forEach(el=>roll(el,from,+el.dataset.count));}
+function tick(){const d=new Date(),c=document.getElementById('clk');if(c)c.textContent=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');}
+setInterval(tick,15000);
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{const pg=curPage();if(pg&&pg.dataset.n==='Paywall')placeHl(pg,true);});
+
+document.addEventListener('click',e=>{
+ const b=e.target.closest('[data-act],[data-to],[data-tab],[data-set],[data-go],[data-mode],[data-var],#reset,#ovbg');if(!b)return;
+ if(b.id==='ovbg')return closeOv();
+ if(b.id==='reset'){s=S0();closeOv(true);dir='tab';render(true);return toast('Demo reset');}
+ const d=b.dataset;
+ if(d.mode){closeOv(true);s.premium=d.mode!=='free';s.trial=d.mode==='trial';s.hadTrial=s.trial;s.sub=s.premium?'annual':null;s.tday=s.trial?3:1;s.cancelled=false;render(false);return toast(d.mode==='free'?'Now a free user':d.mode==='trial'?'Now on a free trial':'Now Premium');}
+ if(d.var){s.variant=d.var;closeOv(true);if(SC[s.i].n!=='Paywall'){go('Paywall');}else render(false);return;}
+ if(d.go!==undefined){closeOv(true);s.hist=[];dir='tab';s.i=+d.go;s.sos=false;return render(true);}
+ if(d.tab){closeOv();return go(d.tab,{tab:1});}
+ if(d.to){closeOv();return go(d.to);}
+ if(d.set){const p=d.set.split(':');s[p[0]]=p[1];return render(false);}
+ if(ACT[d.act])ACT[d.act](b);
+});
+document.addEventListener('input',e=>{if(e.target.id==='msg'){const w=e.target.closest('.inp');if(w)w.classList.toggle('has-text',!!e.target.value.trim());}});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='msg'){e.preventDefault();ACT.send();}if(e.key==='Escape')closeOv();});
+
+render(false);
+</script>
+</body>
+</html>

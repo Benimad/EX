@@ -1,0 +1,1265 @@
+{
+  "@@locale": "en",
+  "appTitle": "MyEx",
+  "commonRetry": "Try Again",
+  "commonContinueFree": "Continue Free",
+  "commonClose": "Close",
+  "commonBack": "Back",
+  "commonCancel": "Cancel",
+  "commonRestore": "Restore",
+  "commonTermsOfUse": "Terms of Use",
+  "commonPrivacyPolicy": "Privacy Policy",
+  "commonNotNow": "Not Now",
+  "configMissingTitle": "Configuration missing",
+  "configMissingBody": "Run the app with --dart-define-from-file=env/dev.json. Missing: {keys}",
+  "@configMissingBody": {
+    "placeholders": {
+      "keys": {
+        "type": "String"
+      }
+    }
+  },
+  "startupError": "We couldn’t connect. Check your connection and try again.",
+  "planReadyTitle": "Your plan is ready.",
+  "planReadySub": "Built from your answers. It starts small, tonight.",
+  "planReadyWhatHappened": "What happened",
+  "planReadyAttachment": "Attachment style",
+  "planReadyFocus": "Focus",
+  "planReadyFirstStep": "First step",
+  "planReadyFirstStepValue": "Tonight · {minutes} min",
+  "@planReadyFirstStepValue": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "planReadyNote": "Grounded in CBT and attachment research. Mira is a coach, not a therapist.",
+  "planReadyCta": "Continue",
+  "paywallTitle": "30 days to feel like you again.",
+  "paywallSub": "Your full plan, and Mira whenever it gets hard.",
+  "paywallStripCaption": "You’re on Day {day}. Premium opens the rest.",
+  "@paywallStripCaption": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "paywallBenefitMiraTitle": "Talk to Mira anytime",
+  "paywallBenefitMiraSub": "No nightly message limit",
+  "paywallBenefitPlanTitle": "All 30 days of your plan",
+  "paywallBenefitPlanSub": "Free stops after Day {day}",
+  "@paywallBenefitPlanSub": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "paywallBenefitAnalysisTitle": "Your full analysis",
+  "paywallBenefitAnalysisSub": "All three patterns, not just one",
+  "paywallPickerLabel": "Choose a plan",
+  "paywallYearly": "Yearly",
+  "paywallMonthly": "Monthly",
+  "paywallSave": "Save {pct}",
+  "@paywallSave": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallYearlyDetailTrial": "{days} days free · {monthly}/month",
+  "@paywallYearlyDetailTrial": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "monthly": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallYearlyDetail": "{monthly}/month",
+  "@paywallYearlyDetail": {
+    "placeholders": {
+      "monthly": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallNoTrial": "No free trial",
+  "paywallPerYear": "per year",
+  "paywallPerMonth": "per month",
+  "paywallTimelineToday": "Today",
+  "paywallTimelineTodayBody": "Full access. No charge.",
+  "paywallTimelineRemindBody": "We’ll send you a reminder.",
+  "paywallTimelineRemindOffBody": "No reminder. You can turn it on here.",
+  "paywallTimelineEndBody": "Your plan starts at {price}/year. Cancel before then and you won’t be charged.",
+  "@paywallTimelineEndBody": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallRemindSemantics": "Remind me before my trial ends",
+  "paywallPrivacyNote": "Your conversations stay private.",
+  "paywallCtaTrial": "Start Free Trial",
+  "paywallCtaSubscribe": "Subscribe",
+  "paywallFineTrial": "{days} days free, then {price}/year. Cancel anytime in Settings.",
+  "@paywallFineTrial": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallFineYearly": "{price}/year. Cancel anytime in Settings.",
+  "@paywallFineYearly": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallFineMonthly": "{price}/month. Cancel anytime in Settings.",
+  "@paywallFineMonthly": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallFineCoins": "Premium includes {count} coins a month.",
+  "@paywallFineCoins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "paywallFineLegal": "Payment is charged to your Apple ID when you confirm (or when the free trial ends). The subscription renews automatically unless cancelled at least 24 hours before the end of the current period. Manage or cancel in Settings › Apple ID › Subscriptions.",
+  "paywallError": "We couldn’t load the plans.",
+  "paywallPending": "Waiting for approval",
+  "paywallFailed": "The purchase didn’t go through. You weren’t charged.",
+  "paywallRestoreNone": "No purchases to restore",
+  "paywallRestoreDone": "Purchases restored",
+  "paywallPlanSemantics": "{name}. {billed}. {detail}",
+  "@paywallPlanSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "billed": {
+        "type": "String"
+      },
+      "detail": {
+        "type": "String"
+      }
+    }
+  },
+  "compareHeader": "What you get",
+  "compareFree": "Free",
+  "comparePremium": "Premium",
+  "compareRowPlan": "Daily plan",
+  "compareRowPlanFree": "Day 1–{day}",
+  "@compareRowPlanFree": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "compareRowPlanPremium": "All 30",
+  "compareRowMira": "Talks with Mira",
+  "compareRowMiraFree": "{count} a day",
+  "@compareRowMiraFree": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "compareUnlimited": "Unlimited",
+  "compareRowSos": "SOS and helplines",
+  "compareIncluded": "Included",
+  "compareNotIncluded": "Not included",
+  "compareRowDraft": "Unsent drafts (Draft Jail)",
+  "compareRowDraftFree": "{count} a day",
+  "@compareRowDraftFree": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "compareRowAnalysis": "Relationship analysis",
+  "compareRowAnalysisFree": "1 insight",
+  "compareRowAnalysisPremium": "Full",
+  "compareRowCoins": "Bonus coins",
+  "compareRowCoinsPremium": "{count} a month",
+  "@compareRowCoinsPremium": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exitSheetLabel": "Special offer",
+  "exitTitleHalf": "Your first year, half price.",
+  "exitTitlePct": "Your first year, {pct} off.",
+  "@exitTitlePct": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "exitBody": "{offer} for your first year, then {annual}/year. Cancel anytime.",
+  "@exitBody": {
+    "placeholders": {
+      "offer": {
+        "type": "String"
+      },
+      "annual": {
+        "type": "String"
+      }
+    }
+  },
+  "exitCta": "Try a Year for {offer}",
+  "@exitCta": {
+    "placeholders": {
+      "offer": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeTitle": "You’re all set, {name}.",
+  "@welcomeTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeTitleNoName": "You’re all set.",
+  "welcomeSubTrialRemind": "Everything’s open. We’ll remind you on {date}, two days before your trial ends.",
+  "@welcomeSubTrialRemind": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeSubTrial": "Everything’s open. Your trial ends on {date}.",
+  "@welcomeSubTrial": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeSubPaid": "Everything’s open. Take it one day at a time.",
+  "welcomeAll30": "All 30 days",
+  "welcomeMira": "Unlimited Mira",
+  "welcomeAnalysis": "Full relationship analysis",
+  "welcomeCoinsAdded": "+{count} coins added",
+  "@welcomeCoinsAdded": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "welcomeCoinsPending": "+{count} coins on the way",
+  "@welcomeCoinsPending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "welcomeCta": "Go to Your Plan",
+  "welcomeFine": "Manage anytime in Me › Subscription",
+  "homeTitle": "Today",
+  "homeGreetingLate": "Still up",
+  "homeGreetingMorning": "Good morning",
+  "homeGreetingAfternoon": "Good afternoon",
+  "homeGreetingEvening": "Good evening",
+  "homeGreetingName": "{greeting}, {name}",
+  "@homeGreetingName": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHeroLabel": "No contact",
+  "homeHeroUnit": "{count, plural, =1{day} other{days}}",
+  "@homeHeroUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeHeroNext": "{remaining, plural, =1{1 more day to {target} days} other{{remaining} more days to {target} days}}",
+  "@homeHeroNext": {
+    "placeholders": {
+      "remaining": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "homeHeroStart": "Start your no-contact streak today.",
+  "homeHeroStartCta": "Start Today",
+  "homePlanTitle": "Your 30-day plan",
+  "homePlanSub": "Free covers Days 1–{day}",
+  "@homePlanSub": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "homeMiraTitle": "Talk to Mira",
+  "homeMiraFreeLeft": "{count, plural, =0{No free messages left tonight} =1{1 free message left tonight} other{{count} free messages left tonight}}",
+  "@homeMiraFreeLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeMiraUnlimited": "Anytime, no limit",
+  "homeSosTitle": "About to text them?",
+  "homeSosSub": "Pause first. SOS is always free.",
+  "homeUpsellTitle": "Day 4 is part of Premium",
+  "homeUpsellTryFree": "Try free",
+  "homeUpsellSeePlans": "See plans",
+  "homeTrialTitle": "{count, plural, =1{Free trial: 1 day left} other{Free trial: {count} days left}}",
+  "@homeTrialTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeTrialSub": "See your subscription",
+  "coinChipSemantics": "{count, plural, =1{1 coin. Open coins} other{{count} coins. Open coins}}",
+  "@coinChipSemantics": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tabHome": "Home",
+  "tabPlan": "Plan",
+  "tabCoach": "Coach",
+  "tabMe": "Me",
+  "sosButton": "SOS",
+  "sosButtonSemantics": "SOS, always free",
+  "coachTitle": "Mira",
+  "coachGreeting": "Hi. I’m here. How’s tonight going?",
+  "coachHint": "Message Mira",
+  "coachSend": "Send",
+  "coachMeter": "{count, plural, =0{No free messages left tonight} =1{1 free message left tonight} other{{count} free messages left tonight}}",
+  "@coachMeter": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coachGetMore": "Get More",
+  "coachSosMode": "SOS mode · no limits",
+  "coachTyping": "Mira is typing",
+  "coachError": "Mira couldn’t answer. Your message is still here.",
+  "limitSheetLabel": "Message limit",
+  "limitTitle": "Mira’s still here.",
+  "limitBody": "{count, plural, =1{You’ve used tonight’s free message.} other{You’ve used tonight’s {count} free messages.}}",
+  "@limitBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "limitPremium": "Keep Talking with Premium",
+  "limitPremiumTrialNote": "Includes a {days}-day free trial.",
+  "@limitPremiumTrialNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "limitCoins": "{count} More Messages for {cost} Coins",
+  "@limitCoins": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "limitGetCoins": "Get Coins",
+  "limitWait": "Wait Until {time}",
+  "@limitWait": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "limitSos": "Struggling right now? SOS is always free.",
+  "limitCreditsAdded": "{count} messages added",
+  "@limitCreditsAdded": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsTitle": "Coins",
+  "coinsUnit": "{count, plural, =1{coin} other{coins}}",
+  "@coinsUnit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsGetHeader": "Get coins",
+  "coinsPackTitle": "{count} coins",
+  "@coinsPackTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsPackBonus": "+{count} bonus",
+  "@coinsPackBonus": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsBestValueBonus": "Best value · +{count} bonus",
+  "@coinsBestValueBonus": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsBestValue": "Best value",
+  "coinsUnlockHeader": "What you can unlock",
+  "coinsItemMsgs": "{count} more messages with Mira",
+  "@coinsItemMsgs": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsItemPlanDay": "Unlock one plan day",
+  "coinsItemAnalysis": "Full relationship analysis",
+  "coinsCrossSell": "Premium includes {count} coins a month",
+  "@coinsCrossSell": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsAdding": "Adding your coins…",
+  "coinsOnTheWay": "Your coins are on the way. Pull to refresh.",
+  "coinsAdded": "+{count} coins added",
+  "@coinsAdded": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coinsError": "We couldn’t load the coin packs.",
+  "sosTitle": "Pause. Breathe.",
+  "sosBreatheIn": "Breathe in",
+  "sosBreatheOut": "Breathe out",
+  "sosBodyStreak": "{count, plural, =1{You’ve gone 1 day without reaching out. Let’s get through the next ten minutes together.} other{You’ve gone {count} days without reaching out. Let’s get through the next ten minutes together.}}",
+  "@sosBodyStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sosBody": "You don’t have to decide anything right now. Let’s get through the next ten minutes together.",
+  "sosTalk": "Talk to Mira",
+  "sosUrgent": "I Need Urgent Help",
+  "sosFree": "SOS is always free.",
+  "crisisSheetLabel": "Crisis support",
+  "crisisTitle": "You don’t have to handle this alone.",
+  "crisisBody": "If you might hurt yourself, please reach a real person now.",
+  "crisisCallEmergency": "Call Emergency Services",
+  "crisisCallHelpline": "Call a Helpline",
+  "crisisNumbers": "Emergency {emergency}",
+  "@crisisNumbers": {
+    "placeholders": {
+      "emergency": {
+        "type": "String"
+      }
+    }
+  },
+  "crisisNumbersHelpline": "Emergency {emergency} · Helpline {helpline}",
+  "@crisisNumbersHelpline": {
+    "placeholders": {
+      "emergency": {
+        "type": "String"
+      },
+      "helpline": {
+        "type": "String"
+      }
+    }
+  },
+  "planTitle": "Your 30 Days",
+  "planNotReady": "Your daily plan is being prepared. Check back soon.",
+  "meTitle": "Me",
+  "meStatusFree": "Free plan",
+  "meStatusTrial": "Free trial",
+  "meStatusPremium": "Premium",
+  "meFreeCardTitleTrial": "Try Premium free for {days} days",
+  "@meFreeCardTitleTrial": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "meFreeCardTitle": "Get Premium",
+  "meFreeCardBody": "All 30 days, unlimited Mira, full analysis.",
+  "meTryFree": "Try Free",
+  "meSeePlans": "See Plans",
+  "meSubscriptionHeader": "Subscription",
+  "mePlan": "Plan",
+  "mePlanYearlyTrial": "Yearly · Free trial",
+  "mePlanYearly": "Yearly",
+  "mePlanMonthly": "Monthly",
+  "mePlanPremium": "Premium",
+  "meRenews": "Renews",
+  "meEnds": "Ends",
+  "meManage": "Manage Subscription",
+  "meCancel": "Cancel Subscription",
+  "meBillingIssue": "There’s a problem with your payment. Update it in the App Store to keep Premium.",
+  "meAccountHeader": "Account",
+  "meCoins": "Coins",
+  "meRestore": "Restore Purchases",
+  "meSupport": "Contact Support",
+  "onbStep": "Step {step} of {total}",
+  "@onbStep": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onbContinue": "Continue",
+  "onbSkip": "Skip",
+  "onbLanguageTitle": "Which language do you prefer?",
+  "onbLanguageSub": "You can change it later in Settings.",
+  "onbLanguageEn": "English",
+  "onbLanguageTr": "Türkçe",
+  "onbWhatTitle": "What happened?",
+  "onbWhatSub": "There’s no wrong answer.",
+  "whatTheyEnded": "They ended it",
+  "whatIEnded": "I ended it",
+  "whatMutual": "It was mutual",
+  "whatComplicated": "It’s complicated",
+  "onbDetailsTitle": "A little more, if you like",
+  "onbDetailsSub": "Both optional. Only you will see their name.",
+  "onbYourName": "Your first name",
+  "onbExName": "Their name",
+  "onbExNameHint": "Only you will see this",
+  "onbLength": "How long were you together?",
+  "onbDone": "Done",
+  "lenLt6m": "Less than 6 months",
+  "len6to12m": "6–12 months",
+  "len1to3y": "1–3 years",
+  "lenGt3y": "More than 3 years",
+  "onbFeelingsTitle": "How are you right now?",
+  "onbMoodLow": "Barely holding on",
+  "onbMoodHigh": "Okay",
+  "onbMoodSemantics": "Mood {value} of 10",
+  "@onbMoodSemantics": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "onbFeelingsSub": "What feels loudest today? Pick any.",
+  "feelSad": "Sad",
+  "feelLonely": "Lonely",
+  "feelAnxious": "Anxious",
+  "feelAngry": "Angry",
+  "feelNumb": "Numb",
+  "feelConfused": "Confused",
+  "feelRelieved": "Relieved",
+  "onbAttachTitle": "How true are these for you?",
+  "onbAttachSub": "A starting point, not a diagnosis.",
+  "attachQ0": "I worry they’ll forget me.",
+  "attachQ1": "I’d rather not need anyone.",
+  "attachQ2": "I replay what I could have said.",
+  "onbGoalsTitle": "What do you want most right now?",
+  "onbGoalsSub": "Pick up to three. The first one is your focus.",
+  "goalNoContact": "Stop texting them",
+  "goalCalm": "Sleep better",
+  "goalSelfWorth": "Feel like myself again",
+  "goalUnderstand": "Understand what went wrong",
+  "onbBuildingTitle": "Building your plan",
+  "onbBuildStep1": "Reading your answers",
+  "onbBuildStep2": "Choosing your first steps",
+  "onbBuildStep3": "Getting Mira ready for you",
+  "attachSecure": "Fairly secure",
+  "attachAnxious": "Leaning anxious",
+  "attachAvoidant": "Leaning avoidant",
+  "attachFearful": "Anxious and avoidant",
+  "focusNoContact": "No contact",
+  "focusCalm": "Better sleep",
+  "focusSelfWorth": "Self-worth",
+  "focusUnderstand": "Understanding what happened",
+  "planReadyTitleNamed": "{name}, your plan is ready.",
+  "@planReadyTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallSubNamed": "{name}, your full plan, and Mira whenever it gets hard.",
+  "@paywallSubNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallBenefitPlanSubFocus": "Focus: {focus}. Free stops after Day {day}.",
+  "@paywallBenefitPlanSubFocus": {
+    "placeholders": {
+      "focus": {
+        "type": "String"
+      },
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "planSubtitle": "Day {day} of 30",
+  "@planSubtitle": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "planDoneCount": "{done} of 30 days done",
+  "@planDoneCount": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "planStageWeek1": "Week 1",
+  "planStageWeek2": "Week 2",
+  "planStageWeek3": "Week 3",
+  "planStageRebuild": "Rebuild",
+  "planRowDone": "Day {day} · Done",
+  "@planRowDone": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "planRowToday": "Day {day} · Today · {minutes} min",
+  "@planRowToday": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "planRowOpensAt": "Day {day} · Opens at {time}",
+  "@planRowOpensAt": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "planRowAfter": "Day {day} · After Day {prev}",
+  "@planRowAfter": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "prev": {
+        "type": "int"
+      }
+    }
+  },
+  "planRowLocked": "Day {day} · Premium",
+  "@planRowLocked": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "planWaitingToast": "This day opens at {time}",
+  "@planWaitingToast": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "planAfterToast": "Finish Day {prev} first",
+  "@planAfterToast": {
+    "placeholders": {
+      "prev": {
+        "type": "int"
+      }
+    }
+  },
+  "planError": "We couldn’t load your plan.",
+  "planFinished": "You finished all 30 days.",
+  "taskTitle": "Day {day}",
+  "@taskTitle": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "taskEntryLabel": "{n}",
+  "@taskEntryLabel": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "taskEntryHint": "Write it down",
+  "taskComplete": "Complete Day {day}",
+  "@taskComplete": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "taskPrivate": "Only you can see what you write.",
+  "taskDoneNote": "You completed this day.",
+  "taskNotOpen": "This day isn’t open yet.",
+  "taskError": "We couldn’t load this day.",
+  "taskSaveError": "We couldn’t save. Your answers are still here.",
+  "dayCompleteTitle": "Day {day} complete",
+  "@dayCompleteTitle": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "dayCompleteBody": "You showed up for yourself today.",
+  "dayCompleteNext": "Day {day} opens tomorrow at {time}.",
+  "@dayCompleteNext": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "dayCompleteNextLocked": "Day {day} is part of Premium.",
+  "@dayCompleteNextLocked": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "dayCompleteAll": "That was Day 30. You stayed with yourself.",
+  "dayCompleteDone": "Back to Your Plan",
+  "lockDaySheetLabel": "Locked day",
+  "lockDayFoot": "Day {day} · {minutes} min",
+  "@lockDayFoot": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "lockDayBody": "Free covers Days 1–{days}. Premium opens all 30, plus the Rebuild stage.",
+  "@lockDayBody": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "lockDayPremium": "Unlock All 30 Days",
+  "lockDayTrialNote": "{days} days free",
+  "@lockDayTrialNote": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "lockDayCoins": "Unlock Day {day} for {cost} Coins",
+  "@lockDayCoins": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+  "lockDayGetCoins": "Get Coins to Unlock Day {day}",
+  "@lockDayGetCoins": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "lockDayUnlocked": "Day {day} unlocked",
+  "@lockDayUnlocked": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "draftTitle": "Draft Jail",
+  "draftSub": "Write what you want to send. It stays locked for 24 hours. If you still want to send it then, it’ll be here.",
+  "draftHint": "What do you want to say?",
+  "draftFieldLabel": "Your message",
+  "draftLock": "Lock for 24 Hours",
+  "draftLockedToast": "Locked for 24 hours",
+  "draftLockedHeader": "Locked",
+  "draftReadyHeader": "Ready",
+  "draftLockedRow": "Locked draft",
+  "draftWords": "{count, plural, =1{1 word} other{{count} words}}",
+  "@draftWords": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "draftUnlocksIn": "Unlocks in {time}",
+  "@draftUnlocksIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "draftReadyRow": "Ready to read",
+  "draftUnlock": "Unlock",
+  "draftCopy": "Copy Text",
+  "draftCopied": "Copied",
+  "draftDelete": "Delete Forever",
+  "draftDeleteTitle": "Delete this draft forever?",
+  "draftDeleteBody": "It will be gone for good. This can’t be undone.",
+  "draftDeleted": "Deleted",
+  "draftStillLocked": "Still locked. Give it a little more time.",
+  "draftEmpty": "Nothing locked right now.",
+  "draftError": "We couldn’t lock it. Your text is still here.",
+  "draftListError": "We couldn’t load your drafts.",
+  "draftSheetLabel": "Draft",
+  "draftFromSos": "Written in SOS",
+  "draftLimitSheetLabel": "Draft Jail limit",
+  "draftLimitTitle": "One draft a day on the free plan.",
+  "draftLimitBody": "Today’s free Draft Jail is used. Your text is still here.",
+  "draftLimitPremium": "Unlimited Drafts with Premium",
+  "homeDraftTitle": "Draft Jail",
+  "homeDraftSub": "Write it here instead of sending it",
+  "sosDraft": "Write It in Draft Jail",
+  "reminderTrialTitle": "Your trial ends in 2 days",
+  "reminderTrialBody": "{talks} talks with Mira and {drafts} unsent texts so far. If it’s not for you, cancel anytime in Settings.",
+  "@reminderTrialBody": {
+    "placeholders": {
+      "talks": {
+        "type": "int"
+      },
+      "drafts": {
+        "type": "int"
+      }
+    }
+  },
+  "reminderTrialBodyEmpty": "Your free trial ends in 2 days. If it’s not for you, cancel anytime in Settings.",
+  "reminderEndingTitle": "Your Premium ends soon",
+  "reminderEndingBody": "Premium ends on {date}. Your streak, plan and SOS stay with you.",
+  "@reminderEndingBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeNotifTitle": "Turn on the reminder?",
+  "welcomeNotifBody": "We’ll send one notification on {date}, two days before your trial ends. Nothing else.",
+  "@welcomeNotifBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "welcomeNotifAllow": "Allow Notifications",
+  "welcomeNotifDenied": "No problem. You can turn it on later in Settings.",
+  "welcomeNotifOn": "Reminder set for {date}",
+  "@welcomeNotifOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "trialTitle": "Your Trial",
+  "trialDaysLeft": "{count, plural, =1{day left} other{days left}}",
+  "@trialDaysLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "trialFreeUntil": "Free until {date}",
+  "@trialFreeUntil": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "trialThen": "Then {price}/year. Cancel anytime before.",
+  "@trialThen": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "trialThenNoPrice": "Cancel anytime before and you won’t be charged.",
+  "trialEndsNoCharge": "Premium ends on {date}. You won’t be charged.",
+  "@trialEndsNoCharge": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "trialSoFar": "So far",
+  "trialTalks": "Talks with Mira",
+  "trialDrafts": "Texts not sent",
+  "trialDaysDone": "Days done",
+  "trialNextTitle": "Next up: Rebuild",
+  "trialNextBody": "Days 8–30 rebuild self-worth and routines.",
+  "trialBack": "Back to Today",
+  "trialNotActive": "You’re not in a free trial right now.",
+  "winbackTitle": "Lumi kept your place.",
+  "winbackSub": "Your streak, plan and drafts are all still here.",
+  "winbackSubStreak": "Your {count}-day streak and your plan are all still here.",
+  "@winbackSubStreak": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "winbackOfferLabel": "Returning member offer",
+  "winbackFor": "for {months} months, then {monthly}/month",
+  "@winbackFor": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      },
+      "monthly": {
+        "type": "String"
+      }
+    }
+  },
+  "winbackFine": "{promo} for {months} months, then {monthly}/month. Cancel anytime.",
+  "@winbackFine": {
+    "placeholders": {
+      "promo": {
+        "type": "String"
+      },
+      "months": {
+        "type": "int"
+      },
+      "monthly": {
+        "type": "String"
+      }
+    }
+  },
+  "winbackCta": "Continue My Plan",
+  "winbackNo": "Stay on Free",
+  "billingIssueCta": "Update Payment",
+  "billingIssueTitle": "Payment problem",
+  "meTrialProgress": "Your Trial Progress",
+  "checkinTitle": "Mira",
+  "checkinBody": "How was today? I’m here if you want to talk.",
+  "cancelSheetLabel": "Cancel subscription",
+  "cancelTitle": "Mind sharing why?",
+  "cancelSub": "It helps us improve MyEx. You can skip this.",
+  "cancelReasonPrice": "It’s too expensive",
+  "cancelReasonBetter": "I’m feeling better",
+  "cancelReasonUnused": "I’m not using it",
+  "cancelReasonOther": "Something else",
+  "cancelPriceTitle": "Stay for {promo} for a year",
+  "@cancelPriceTitle": {
+    "placeholders": {
+      "promo": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelPriceBody": "Half price, same everything. Applied as an App Store offer.",
+  "cancelPriceCta": "Keep Premium for Less",
+  "cancelSwitchTitle": "Switch to Yearly and save {pct}",
+  "@cancelSwitchTitle": {
+    "placeholders": {
+      "pct": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelSwitchBody": "{price}/year instead of paying monthly.",
+  "@cancelSwitchBody": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "cancelSwitchCta": "Switch to Yearly",
+  "cancelBetter": "That’s the whole point. Your streak, journal and SOS stay free. Come back anytime.",
+  "cancelUnusedTitle": "Want a short check-in each night?",
+  "cancelUnusedBody": "One message from Mira at 10 PM.",
+  "cancelUnusedCta": "Turn On Check-ins",
+  "cancelCheckinOn": "Check-ins on. See you at 10 PM.",
+  "cancelCheckinDenied": "Notifications are off. You can turn them on in Settings.",
+  "cancelOther": "Thank you for telling us. It helps us make MyEx better.",
+  "cancelNoteLabel": "Anything else? (optional)",
+  "cancelContinue": "Continue to Cancel",
+  "cancelKept": "Premium kept. Thank you.",
+  "meSwitchYearly": "Switch to Yearly",
+  "meTrialEnds": "Trial ends",
+  "meCancelledNote": "Cancelled. Premium stays on until {date}.",
+  "@meCancelledNote": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "meDayStatus": "Day {day} · {status}",
+  "@meDayStatus": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "meNameFallback": "You",
+  "onbHelpNow": "Need Help Now?",
+  "onbNameTitle": "What should we call you?",
+  "onbNameSub": "Optional. Only used inside the app.",
+  "onbWhenTitle": "When did it end?",
+  "whenThisWeek": "This week",
+  "whenWeeks": "1–4 weeks ago",
+  "whenMonths": "1–6 months ago",
+  "whenLonger": "Longer",
+  "onbContactTitle": "Are you still in touch?",
+  "contactNone": "No",
+  "contactSometimes": "Sometimes",
+  "contactMostDays": "Most days",
+  "contactShared": "We share kids or work",
+  "onbHardestTitle": "When is it hardest?",
+  "onbHardestSub": "Pick any.",
+  "hardLateNight": "Late at night",
+  "hardMornings": "Mornings",
+  "hardWeekends": "Weekends",
+  "hardPosts": "When I see their posts",
+  "onbMiraTitle": "Mira’s there at 2 AM.",
+  "onbMiraBody": "And SOS is always free, whenever you need it.",
+  "goalStopChecking": "Stop checking their profile",
+  "focusStopChecking": "Stop checking",
+  "ansAgree": "Agree",
+  "ansNotReally": "Not really",
+  "onbUnsentTitle": "Anything you wish you could tell them?",
+  "onbUnsentSub": "It won’t be sent. It goes into Draft Jail.",
+  "onbUnsentHint": "Write it here. It won’t be sent.",
+  "onbUnsentSave": "Save Unsent",
+  "onbUnsentSaved": "Saved. It stays unsent for 24 hours.",
+  "onbCheckinTitle": "Want a check-in when it’s hardest?",
+  "onbCheckinSub": "One message from Mira at {time}. You can change the time.",
+  "@onbCheckinSub": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "onbCheckinChange": "Change Time",
+  "onbCheckinAllow": "Allow Check-ins",
+  "onbCheckinOn": "Check-ins on at {time}",
+  "@onbCheckinOn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "onbBuildFocus": "Matching your focus: {focus}",
+  "@onbBuildFocus": {
+    "placeholders": {
+      "focus": {
+        "type": "String"
+      }
+    }
+  },
+  "onbBuildHardest": "Planning for your hardest time: {time}",
+  "@onbBuildHardest": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "onbBuildDay1": "Choosing Day 1: {minutes} minutes, tonight",
+  "@onbBuildDay1": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "onbBuildTrack": "Setting your track: {track}",
+  "@onbBuildTrack": {
+    "placeholders": {
+      "track": {
+        "type": "String"
+      }
+    }
+  },
+  "planReadyWhen": "When it ended",
+  "planReadyTrack": "Your track",
+  "planTrackNoContact": "No contact",
+  "planTrackLowContact": "Low contact (shared kids or work)",
+  "planReadyFirstDays": "Your first 3 days",
+  "planReadyDayRow": "Day {day}",
+  "@planReadyDayRow": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
+  "planReadyTonight": "Tonight · {minutes} min",
+  "@planReadyTonight": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "planReadySupport": "{time}: Mira’s here, and SOS is always free.",
+  "@planReadySupport": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "planReadyLocked": "Days 4–30 open with Premium.",
+  "paywallSubTrial": "{days} days free, then {price}/year.",
+  "@paywallSubTrial": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallSubYearly": "{price}/year. Cancel anytime.",
+  "@paywallSubYearly": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallSubMonthly": "{price}/month. No free trial.",
+  "@paywallSubMonthly": {
+    "placeholders": {
+      "price": {
+        "type": "String"
+      }
+    }
+  },
+  "paywallNoPaymentToday": "No payment today",
+  "paywallTimelineBuild": "Build your plan",
+  "paywallTimelineBuildBody": "Done. Based on your answers.",
+  "paywallNotifOff": "Notifications are off for MyEx.",
+  "paywallOpenSettings": "Open Settings",
+  "paywallHowCancel": "How do I cancel?",
+  "paywallHowCancelIos": "Settings › your name › Subscriptions › MyEx › Cancel Subscription. Takes under a minute. Your streak and journal stay.",
+  "paywallHowCancelAndroid": "Play Store › your profile › Payments & subscriptions › Subscriptions › MyEx › Cancel. Takes under a minute. Your streak and journal stay."
+}
